@@ -139,8 +139,8 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: const [
-                    Tables(table: 1),
-                    Tables(table: 2),
+                    Tables(table: 1, status: 0),
+                    Tables(table: 2, status: 1),
                   ],
                 ),
                 SizedBox(
@@ -149,7 +149,7 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: const [
-                    Tables(table: 3),
+                    Tables(table: 3, status: 0),
                   ],
                 ),
                 SizedBox(
@@ -158,8 +158,8 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: const [
-                    Tables(table: 4),
-                    Tables(table: 5),
+                    Tables(table: 4, status: 0),
+                    Tables(table: 5, status: 0),
                   ],
                 ),
                 SizedBox(
@@ -168,9 +168,9 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: const [
-                    Tables(table: 6),
-                    Tables(table: 7),
-                    Tables(table: 8),
+                    Tables(table: 6, status: 0),
+                    Tables(table: 7, status: 1),
+                    Tables(table: 8, status: 0),
                   ],
                 ),
               ],

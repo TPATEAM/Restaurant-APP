@@ -4,8 +4,13 @@ import 'package:restaurant/views/pedidos.dart';
 
 class Tables extends StatelessWidget{
   final int table;
-  const Tables({Key? key,
-    required this.table}) : super(key: key);
+  final int status;
+
+  const Tables({
+    Key? key,
+    required this.table,
+    required this.status
+  }) : super(key: key);
     
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class Tables extends StatelessWidget{
         children: <Widget>[
           Image.asset('assets/images/table_free.png',
             width: 96,
-            color: reptileGreen,
+            color: status == 0 ? reptileGreen : orangeHibiscus,
           ),
           Center(
             child: Text(table.toString(), style:

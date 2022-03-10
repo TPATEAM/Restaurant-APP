@@ -21,8 +21,8 @@ class PedidosView extends StatefulWidget {
 }
 
 class ViewPedidos extends State<PedidosView> {
-  Color viewCompleted = reptileGreen;
-  Color viewPending = Colors.grey.shade400;
+  Color viewCompleted = Colors.grey.shade400;
+  Color viewPending = reptileGreen;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -115,6 +115,14 @@ class ViewPedidos extends State<PedidosView> {
               ],
             ),
             PlatilloView(),
+            Container(
+              margin: EdgeInsets.only(left: 300, right: 10),
+              child: FloatingActionButton(onPressed: () {},
+                child: Icon(Icons.add),
+                backgroundColor: reptileGreen,
+              ),
+            ),
+
           ],
         ),
         bottomNavigationBar: NavMenuBar(idx: 2),

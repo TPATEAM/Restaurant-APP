@@ -2,15 +2,15 @@
   {
     "id": 0,
     "name": "Pizza",
-    "description": "Pizza de Pepperoni Familiar",
+    "description": "La combinación perfecta entre Pepperoni y Champiñones, con un gran sabor y horneado al momento.",
     "category": "Comida Italiana",
     "price": "79.99",
-    "imageUrl": "https://cdn.kiwilimon.com/recetaimagen/29699/th5-640x640-31115.jpg"
+    "imageUrl": "https://placeralplato.com/files/2016/01/Pizza-con-pepperoni-640x480.jpg?width=1200&enable=upscale"
   },
   {
     "id": 1,
     "name": "Coctel de Camarones",
-    "description": "Coctel de Camarones con Limon Grande",
+    "description": "Preparación a base de camarones generalmente crudos, aliñados o macerados en una mezcla de aceite de oliva o maíz, puré de jitomate o salsa catsup, cebolla picada y cilantro.",
     "category": "Mariscos",
     "price": "90.50",
     "imageUrl": "https://cdn.kiwilimon.com/recetaimagen/29699/th5-640x640-31115.jpg"
@@ -18,9 +18,9 @@
   {
     "id": 2,
     "name": "Hamburguesa",
-    "description": "Hamburguesa de 3 pisos con queso y tocino en salsa BBQ",
+    "description": "Dos piezas de carne 100% Black Angus, salsa especial, 2 rebanadas queso americano, mayonesa, lechuga, cebolla morada, tomate y pepinillos.",
     "category": "Comida Rapida",
-    "price": "79.80",
-    "imageUrl": "https://cdn.kiwilimon.com/recetaimagen/29699/th5-640x640-31115.jpg"
+    "price": "65.80",
+    "imageUrl": "https://gourmetdemexico.com.mx/wp-content/uploads/2021/05/dia-de-la-hamburguesa.jpg"
   }
 ]
