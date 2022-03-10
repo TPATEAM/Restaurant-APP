@@ -1,46 +1,21 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as rootBundle;
 import 'package:restaurant/models/Platillo.dart';
 
-void main() {
-  runApp(MyApp());
-}
+class asd extends StatelessWidget {
+  const asd({Key? key}) : super(key: key);
 
-class MyApp extends StatelessWidget 
-{
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder(
+    return Container(
+      child: FutureBuilder(
         future: ReadJsonData(),
         builder: (context,data){
           if(data.hasError){
             return Center(child: Text("${data.error}"));
-          }else if(data.hasData){
+          }
+          else if(data.hasData){
             var items =data.data as List<Platillo>;
             return ListView.builder(
               itemCount: items == null? 0: items.length,
@@ -83,8 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
             return Center(child: CircularProgressIndicator(),);
           }
         },
-      )
-    );
+      ),);
   }
 
   Future<List<Platillo>>ReadJsonData() async{

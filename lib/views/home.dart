@@ -177,7 +177,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        bottomNavigationBar: NavBar(idx: 0),
+        bottomNavigationBar: NavMenuBar(idx: 0),
       ),
     );
   }

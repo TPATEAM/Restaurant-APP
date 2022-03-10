@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant/values.dart';
+import 'package:restaurant/views/home.dart';
 
-class NavBar extends StatelessWidget {
-  final int idx;
-  const NavBar({Key? key, required this.idx}) : super(key: key);
+class NavMenuBar extends StatefulWidget
+{
+  int idx = 0;
+  NavMenuBar({
+    Key? key,
+    required this.idx
+  }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState()  {
+    return NavBar(idx: idx);
+  }
+}
+
+class NavBar extends State<NavMenuBar> {
+  int idx = 0;
+
+  NavBar({
+    Key? key,
+    required this.idx
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +51,20 @@ class NavBar extends StatelessWidget {
       unselectedItemColor: Colors.white38,
       selectedItemColor: Colors.white,
       currentIndex: idx,
-      onTap: (int index) {},
+      onTap: (int index) {
+        setState(() {
+          idx = index;
+        });
+
+        if(idx == 0)
+        {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+          );
+        }
+        
+      },
     );
   }
 }
