@@ -34,9 +34,12 @@ class PlatilloView extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          Image(
-                            image: NetworkImage(items[index].imageUrl.toString()), 
-                            width: 120,
+                          Container(
+                            width: 100,
+                            height: 115,
+                            child: Image.network(items[index].imageUrl.toString(),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ],
                       ),
