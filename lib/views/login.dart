@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:restaurant/values.dart';
 
 import 'home.dart';
@@ -7,6 +8,7 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final user = TextEditingController();
   final pass = TextEditingController();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,6 +16,13 @@ class LoginScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey.shade50,
+          backwardsCompatibility: false,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent
+          ),
+        ),
       ),
       home: Container(
         decoration: BoxDecoration(
@@ -118,6 +127,7 @@ class LoginScreen extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                             fontSize: 24,
                           ),
+                          obscureText: true,
                           controller: pass,
                           autofocus: false,
                           decoration: InputDecoration(
@@ -158,8 +168,7 @@ class LoginScreen extends StatelessWidget {
                         child: TextButton(
                           onPressed: () {
                             if(user.text == "admin" && pass.text == "admin"){
-                              Navigator.push(
-                                context,
+                              Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => HomeScreen(),
                                 ),

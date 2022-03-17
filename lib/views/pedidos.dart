@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:restaurant/values.dart';
+import 'package:restaurant/views/order.dart';
 import 'package:restaurant/widgets/pedidoslist.dart';
 import 'package:restaurant/widgets/utility/navbar.dart';
 
@@ -22,7 +23,7 @@ class PedidosView extends StatefulWidget {
 
 class ViewPedidos extends State<PedidosView> {
   Color viewCompleted = Colors.grey.shade400;
-  Color viewPending = reptileGreen;
+  Color viewPending = fusionRed;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,7 +41,7 @@ class ViewPedidos extends State<PedidosView> {
         body: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 40, left: 20),
+              margin: EdgeInsets.only(top: 50, left: 20),
               child: Center(
                 child: Text(
                   "Mesa #" + widget.table.toString(),
@@ -87,11 +88,10 @@ class ViewPedidos extends State<PedidosView> {
                         ),
                       ),
                       GestureDetector(
-                        //On tap change font color Text widget to fusionRed
                         onTap: () {
                           setState(() {
                             viewCompleted = Colors.grey.shade400;
-                            viewPending = reptileGreen;
+                            viewPending = fusionRed;
                           });
                         },
                         child: Text('Pendientes', 
@@ -114,16 +114,20 @@ class ViewPedidos extends State<PedidosView> {
                 ),
               ],
             ),
-            PlatilloView(),
-            Container(
-              margin: EdgeInsets.only(left: 300, right: 10),
-              child: FloatingActionButton(onPressed: () {},
-                child: Icon(Icons.add),
-                backgroundColor: reptileGreen,
-              ),
-            ),
-
+            //PlatilloView(),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OrderView(table: widget.table),
+              ),
+            );
+          },
+          child: Icon(Icons.add),
+          backgroundColor: reptileGreen,
         ),
         bottomNavigationBar: NavMenuBar(idx: 2),
       ),

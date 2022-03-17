@@ -13,9 +13,13 @@ class MyUAT extends StatelessWidget {
       title: 'Restaurante',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey.shade50,
           backwardsCompatibility: false,
-          systemOverlayStyle: SystemUiOverlayStyle.light,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent
+          ),
         ),
       ),
       home: SplashScreen(),

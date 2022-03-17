@@ -6,7 +6,7 @@ import 'package:restaurant/widgets/tables.dart';
 
 class HomeScreen extends StatelessWidget {
 
-  String name = 'Nombre Apellido';
+  String name = 'Jose Luis';
   String role = 'Mesero';
 
   HomeScreen({Key? key}) : super(key: key);
@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.grey.shade50,
           backwardsCompatibility: false,
