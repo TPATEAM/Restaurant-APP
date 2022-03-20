@@ -54,13 +54,18 @@ class Ordenar extends State<OrdenarView> {
             Container(
               margin: EdgeInsets.only(top: 40, left: 20),
               child: Center(
-                child: Text(
-                  "Mesa #" + widget.table.toString(),
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black54,
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    "Mesa #" + widget.table.toString(),
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black54,
+                    ),
                   ),
                 ),
               ),

@@ -22,6 +22,10 @@ class Order extends State<OrderView>
   final platilloName = TextEditingController();
   List<Platillo> platillos = [];
   List<Platillo> temp = [];
+  List<Data> platillosData = [];
+  //===========================================================
+  
+  //===========================================================
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -67,9 +71,7 @@ class Order extends State<OrderView>
                   controller: platilloName,
                   onChanged: (value)
                   {
-                    setState(() {
-                      findPlatillo(value);
-                    });
+                    findPlatillo(value.toString());
                   },
                   autofocus: false,
                   decoration: InputDecoration(
@@ -127,13 +129,80 @@ class Order extends State<OrderView>
   }
 
   void findPlatillo(String value) {
+    platillosData.clear();
+    value = value.toLowerCase();
+    List<String> keys = value.split(" ");
     List<Platillo> temp = platillos;
+    int idx = 0;
     for(var platillo in platillos)
     {
-      if(platillo.name!.toLowerCase().toString().contains(value.toLowerCase()))
+      idx++;
+      platillosData.add(Data(platillo: platillo));
+      
+      platillosData.elementAt(idx).ocurrencias = 0;
+      platillosData.elementAt(idx).posiciones!.clear();
+    }
+    idx = 0;
+    for(var platillo in platillos)
+    {
+      idx++;
+      for(int i = 0; i < keys.length; i++)
       {
-        platillos.remove(platillo);
+        if(platillos.elementAt(idx).name!.toLowerCase().indexOf(keys.elementAt(i)) > -1)
+        {
+          platillosData.elementAt(idx).ocurrencias = (platillosData.elementAt(idx).ocurrencias! + 1);
+          platillosData.elementAt(idx).posiciones!.add(platillos.elementAt(idx).name!.toLowerCase().indexOf(keys.elementAt(i)));
+        }
+      }
+      for(int i = 0; i < platillosData.length; i++)
+      {
+        if(platillosData.elementAt(idx).ocurrencias! > platillosData.elementAt(i).ocurrencias!)
+        {
+          Data aux = platillosData.elementAt(idx);
+          platillosData.insert(idx, platillosData.elementAt(i));
+          platillosData.insert(i, aux);
+        }
+        else if(platillosData.elementAt(idx).ocurrencias == platillosData.elementAt(i).ocurrencias)
+        {
+          if(platillosData.elementAt(idx).platillo!.name!.compareTo(platillosData.elementAt(i).platillo!.name.toString()) < 0)
+          {
+            Data aux = platillosData.elementAt(idx);
+            platillosData.insert(idx, platillosData.elementAt(i));
+            platillosData.insert(i, aux);
+          }
+        }
+        if(platillosData.elementAt(idx).ocurrencias! > 0 && platillosData.elementAt(i).ocurrencias! > 0)
+        {
+          if(platillosData.elementAt(idx).posiciones!.elementAt(0) < platillosData.elementAt(i).posiciones!.elementAt(0))
+          {
+            Data aux = platillosData.elementAt(idx);
+            platillosData.insert(idx, platillosData.elementAt(i));
+            platillosData.insert(i, aux);
+          }
+        }
+      }
+    }
+    bool enc = false;
+    for(int i = 0; i < platillosData.length; i++)
+    {
+      if(platillosData.elementAt(i).ocurrencias! > 0)
+      {
+        enc = true;
+        setState(() {
+        platillos.add(platillosData.elementAt(i).platillo!);});
       }
     }
   }
 }
+
+  class Data
+  {
+    Platillo? platillo;
+    int? ocurrencias;
+    List<int>? posiciones;
+
+    Data({
+      required this.platillo,
+      this.ocurrencias = 0,
+    });
+  }
