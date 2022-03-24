@@ -49,7 +49,7 @@ class PlatilloView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  width: 180,
+                                  width: MediaQuery.of(context).size.width-120,
                                   child: Text(
                                     platillos[index].name.toString(),
                                     style: TextStyle(
@@ -59,19 +59,6 @@ class PlatilloView extends StatelessWidget {
                                       color: Colors.grey.shade600,
                                     ),
                                     overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-
-                                Container(
-                                  margin: EdgeInsets.only(right: 10),
-                                  child: Text(
-                                    '\$${platillos[index].price.toString()}',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w600,
-                                      color: blackLight,
-                                    ),
                                   ),
                                 ),
                               ],
@@ -104,13 +91,14 @@ class PlatilloView extends StatelessWidget {
                                 Container(
                                   width: MediaQuery.of(context).size.width - 220,
                                   margin: EdgeInsets.only(top: 10),
+
                                   child: Text(
-                                    '${platillos[index].category.toString()}',
+                                    '\$${platillos[index].price.toString()}',
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 20,
                                       fontFamily: 'Inter',
                                       fontWeight: FontWeight.w600,
-                                      color: Colors.grey.shade400,
+                                      color: blackLight,
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
