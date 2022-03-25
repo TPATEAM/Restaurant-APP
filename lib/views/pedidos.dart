@@ -1,136 +1,107 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:restaurant/values.dart';
-import 'package:restaurant/views/order.dart';
-import 'package:restaurant/widgets/pedidoslist.dart';
 import 'package:restaurant/widgets/utility/navbar.dart';
 
-class PedidosView extends StatefulWidget {
-  final int table;
-
-  const PedidosView(
-    {
-      Key? key,
-      required this.table
-    })
-    : super(key: key);
+class Pedidos extends StatefulWidget {
+  final int numTable;
+  Pedidos({
+    Key? key,
+    required this.numTable
+  }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return ViewPedidos();
-  }
+  State<Pedidos> createState() => _PedidosState();
 }
 
-class ViewPedidos extends State<PedidosView> {
-  Color viewCompleted = Colors.grey.shade400;
-  Color viewPending = fusionRed;
+class _PedidosState extends State<Pedidos> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.grey.shade50,
-          backwardsCompatibility: false,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent
-          ),
-        ),
-      ),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 50, left: 20),
-              child: Center(
-                child: Text(
-                  "Mesa #" + widget.table.toString(),
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black54,
-                  ),
-                ),
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back,
+                color: Colors.black,
               ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
-            SizedBox(
-              height: 30,
-            ),
-            Column(
-              children: [
-                Container(
-                  height: 1,
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.grey.shade400,
+            backgroundColor: Colors.white,
+            bottom: TabBar(
+              unselectedLabelColor: Colors.grey.shade400,
+              labelStyle: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
+                fontSize: 22,
+              ),
+              labelColor: orangeHibiscus,
+              indicator: UnderlineTabIndicator(
+                borderSide: BorderSide(
+                  color: orangeHibiscus,
+                  width: 3
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 30, right: 30),
-                  height: 55,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            viewCompleted = reptileGreen;
-                            viewPending = Colors.grey.shade400;
-                          });
-                        },
-                        child: Text('Completadas', 
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600,
-                            color: viewCompleted,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            viewCompleted = Colors.grey.shade400;
-                            viewPending = fusionRed;
-                          });
-                        },
-                        child: Text('Pendientes', 
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600,
-                            color: viewPending,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 1,
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.grey.shade400,
-                ),
+                insets: EdgeInsets.symmetric(horizontal: 20)
+              ),
+              tabs: const [
+                Tab(text: 'COMPLETADOS'),
+                Tab(text: 'PENDIENTES'),
               ],
             ),
-            //PlatilloView(),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => OrderView(table: widget.table),
+            title: Text("Mesa #" + widget.numTable.toString(),
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
+                fontSize: 25,
+                color: Colors.black54,
               ),
-            );
-          },
-          child: Icon(Icons.add),
-          backgroundColor: reptileGreen,
+            ),
+            centerTitle: true,
+          ),
+          body: TabBarView(
+            children: [
+             FirstScreen(),
+             SecondScreen(),
+            ],
+          ),
+          bottomNavigationBar: NavMenuBar(idx: 2),
         ),
-        bottomNavigationBar: NavMenuBar(idx: 2),
       ),
     );
+  }
+}
+ 
+class FirstScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+            body: Center(
+              child: 
+              Text('Pedidos Completados', 
+                style: TextStyle(fontSize: 21),)
+              )
+            )
+          );
+  }
+}
+ 
+class SecondScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+            body: Center(
+              child: 
+              Text('Pedidos Pendientes',
+                style: TextStyle(fontSize: 21),)
+              )
+            )
+          );
   }
 }

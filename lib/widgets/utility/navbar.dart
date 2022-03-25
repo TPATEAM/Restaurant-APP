@@ -11,7 +11,7 @@ class NavMenuBar extends StatefulWidget
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState()  {
+  State<NavMenuBar> createState()  {
     return NavBar(idx: idx);
   }
 }
@@ -29,7 +29,7 @@ class NavBar extends State<NavMenuBar> {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.chair_rounded),
+          icon: Icon(Icons.table_chart),
           label: 'Mesas',
         ),
         BottomNavigationBarItem(
@@ -56,8 +56,9 @@ class NavBar extends State<NavMenuBar> {
           idx = index;
         });
 
-        if(idx == 0)
+        if(idx == 0 )
         {
+          Navigator.pop(context);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => HomeScreen()),

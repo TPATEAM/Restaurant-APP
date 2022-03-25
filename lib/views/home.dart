@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:restaurant/values.dart';
+import 'package:restaurant/widgets/TablesView.dart';
 import 'package:restaurant/widgets/utility/navbar.dart';
-import 'package:restaurant/widgets/tables.dart';
 
 class HomeScreen extends StatelessWidget {
 
-  String name = 'Jose Luis';
+  String name = 'Rodrigo García';
   String role = 'Mesero';
 
   HomeScreen({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
         body: ListView(
           children: [
             /* =============== [ HEADER ] ===============*/
-            Container(
+            SizedBox(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                     width: 75,
                     height: 75,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
+                      borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
                         image: AssetImage('assets/images/user.png'),
                         fit: BoxFit.cover,
@@ -98,83 +98,79 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               height: MediaQuery.of(context).size.height * 0.15,
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.grey.shade400,
-                    width: 1,
-                  ),
-                ),
-              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 1,
+              margin: EdgeInsets.only(left: 60, right: 60),
+              color: Colors.grey.shade300,
             ),
             /* =============== [ BODY ] ===============*/
-            Column(
-              children: [
-                SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+            
+            SingleChildScrollView(
+              padding: EdgeInsets.only(top:20),
+              child: Container(
+                child: Column(
                   children: [
-                    Container(
-                      width: 100,
-                      height: 40,
-                      color: Colors.grey.shade400,
-                      child: Center(
-                        child: Text('Entrada', style: 
-                          TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: blackLight,
-                          ),
-                          textAlign: TextAlign.center,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.35,
+                              height: 45,
+                              color: Colors.grey.shade400,
+                            ),
+                            Text('Entrada',
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        TablesView(numTable: 1),
+                        TablesView(numTable: 2),
+                        TablesView(numTable: 3),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        TablesView(numTable: 4),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        TablesView(numTable: 5),
+                        TablesView(numTable: 6),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        TablesView(numTable: 7),
+                        TablesView(numTable: 8),
+                        TablesView(numTable: 9),
+                      ],
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
-                    Tables(table: 1, status: 0),
-                    Tables(table: 2, status: 1),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
-                    Tables(table: 3, status: 0),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
-                    Tables(table: 4, status: 0),
-                    Tables(table: 5, status: 0),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
-                    Tables(table: 6, status: 0),
-                    Tables(table: 7, status: 1),
-                    Tables(table: 8, status: 0),
-                  ],
-                ),
-              ],
+              ),
             ),
           ],
         ),

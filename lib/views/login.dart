@@ -89,6 +89,7 @@ class LoginScreen extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                             fontSize: 24,
                           ),
+                          textInputAction: TextInputAction.next,
                           controller: user,
                           autofocus: false,
                           decoration: InputDecoration(
@@ -130,6 +131,7 @@ class LoginScreen extends StatelessWidget {
                           obscureText: true,
                           controller: pass,
                           autofocus: false,
+                          textInputAction: TextInputAction.done,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
