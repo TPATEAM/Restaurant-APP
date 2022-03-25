@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant/values.dart';
+import 'package:restaurant/views/pedidos_order.dart';
 import 'package:restaurant/widgets/utility/navbar.dart';
 
 class Pedidos extends StatefulWidget {
@@ -72,7 +73,13 @@ class _PedidosState extends State<Pedidos> {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                MaterialPageRoute(
+                  builder: (context) => PedidosOrder(numTable: widget.numTable),
+                )
+              );
+            },
             child: Icon(Icons.add),
             backgroundColor: reptileGreen,
           ),
