@@ -5,7 +5,7 @@ class Ingredient {
   String? name;
   String? description;
   bool? type;
-  Float? price;
+  Double? price;
 
   Ingredient({
     this.idIngredient,
@@ -14,4 +14,14 @@ class Ingredient {
     this.type,
     this.price,
   });
+
+  factory Ingredient.fromJson(Map<String, dynamic> json) {
+    return Ingredient(
+      idIngredient: json['idIngredient'],
+      name: json['name'],
+      description: json['description'],
+      type: json['type'],
+      price: json['price'],
+    );
+  }
 }

@@ -1,29 +1,35 @@
-class Platillo
-{
-  int? id;
+import 'package:restaurant/models/Ingredient.dart';
+
+class Platillo {
+  int? idPlatillo;
   String? name;
   String? description;
-  String? category;
-  String? price;
+  double? price;
   String? imageUrl;
+  List<Ingredient> listaIngredientes;
+  int? idCategory;
 
   Platillo({
-    this.id,
-    this.name,
-    this.description,
-    this.category,
-    this.price,
-    this.imageUrl,
+    required this.idPlatillo,
+    required this.name,
+    required this.description,
+    required this.price,
+    required this.imageUrl,
+    required this.listaIngredientes,
+    required this.idCategory,
   });
 
   factory Platillo.fromJson(Map<String, dynamic> json) {
     return Platillo(
-      id: json['id'],
+      idPlatillo: json['idPlatillo'],
       name: json['name'],
       description: json['description'],
-      category: json['category'],
       price: json['price'],
       imageUrl: json['imageUrl'],
+      listaIngredientes: (json['listaIngredientes'] as List<dynamic>)
+          .map((e) => Ingredient.fromJson(e))
+          .toList(),
+      idCategory: json['category'],
     );
   }
 }

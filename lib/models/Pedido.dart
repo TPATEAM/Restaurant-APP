@@ -1,7 +1,6 @@
 import 'Platillo.dart';
 
-class Pedido
-{
+class Pedido {
   String numMesa;
   List<Platillo> platillos;
   DateTime fecha;
@@ -21,7 +20,9 @@ class Pedido
   factory Pedido.fromJson(Map<String, dynamic> json) {
     return Pedido(
       numMesa: json['numMesa'],
-      platillos: (json['platillos'] as List<dynamic>).map((e) => Platillo.fromJson(e)).toList(),
+      platillos: (json['platillos'] as List<dynamic>)
+          .map((e) => Platillo.fromJson(e))
+          .toList(),
       fecha: DateTime.parse(json['fecha']),
       empleado: json['empleado'],
       anotaciones: json['anotaciones'],
