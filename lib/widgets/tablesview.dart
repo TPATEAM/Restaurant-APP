@@ -20,12 +20,12 @@ class _TablesViewState extends State<TablesView> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Navigator.of(this.context).push(
+        Navigator.push(this.context,
           MaterialPageRoute(
             builder: (context) => Pedidos(
               numTable: widget.numTable,
             ),
-          ),
+          )
         );
       },
       child: Stack(

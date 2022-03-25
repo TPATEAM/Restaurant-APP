@@ -6,7 +6,7 @@ import 'package:restaurant/widgets/utility/navbar.dart';
 
 class HomeScreen extends StatelessWidget {
 
-  String name = 'Rodrigo García';
+  String name = 'Nombre Apellido';
   String role = 'Mesero';
 
   HomeScreen({Key? key}) : super(key: key);
@@ -58,8 +58,7 @@ class HomeScreen extends StatelessWidget {
                     child: IconButton(
                       icon: Icon(Icons.qr_code),
                       iconSize: 24,
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                     ),
                   ),
                   Column(

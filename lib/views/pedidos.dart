@@ -21,51 +21,60 @@ class _PedidosState extends State<Pedidos> {
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            backgroundColor: Colors.white,
-            bottom: TabBar(
-              unselectedLabelColor: Colors.grey.shade400,
-              labelStyle: TextStyle(
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w600,
-                fontSize: 22,
-              ),
-              labelColor: orangeHibiscus,
-              indicator: UnderlineTabIndicator(
-                borderSide: BorderSide(
-                  color: orangeHibiscus,
-                  width: 3
+          appBar: PreferredSize(
+          preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.11),
+            child: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back_sharp,
+                  color: Colors.grey.shade400,
+                  size: 30,
                 ),
-                insets: EdgeInsets.symmetric(horizontal: 20)
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
-              tabs: const [
-                Tab(text: 'COMPLETADOS'),
-                Tab(text: 'PENDIENTES'),
-              ],
-            ),
-            title: Text("Mesa #" + widget.numTable.toString(),
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w600,
-                fontSize: 25,
-                color: Colors.black54,
+              backgroundColor: Colors.white,
+              bottom: TabBar(
+                unselectedLabelColor: Colors.grey.shade400,
+                labelStyle: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
+                labelColor: orangeHibiscus,
+                indicator: UnderlineTabIndicator(
+                  borderSide: BorderSide(
+                    color: orangeHibiscus,
+                    width: 3
+                  ),
+                  insets: EdgeInsets.symmetric(horizontal: 20)
+                ),
+                tabs: const [
+                  Tab(text: 'COMPLETADOS'),
+                  Tab(text: 'PENDIENTES'),
+                ],
               ),
+              title: Text("Mesa #" + widget.numTable.toString(),
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 25,
+                  color: Colors.black54,
+                ),
+              ),
+              centerTitle: true,
             ),
-            centerTitle: true,
           ),
           body: TabBarView(
             children: [
              FirstScreen(),
              SecondScreen(),
             ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            child: Icon(Icons.add),
+            backgroundColor: reptileGreen,
           ),
           bottomNavigationBar: NavMenuBar(idx: 2),
         ),
