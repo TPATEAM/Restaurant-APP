@@ -66,9 +66,9 @@ class _PedidosState extends State<Pedidos> {
             ),
           ),
           body: TabBarView(
-            children: [
-             FirstScreen(),
-             SecondScreen(),
+            children: const [
+              PedidosCompletados(),
+              PedidosPendientes(),
             ],
           ),
           floatingActionButton: FloatingActionButton(
@@ -83,7 +83,9 @@ class _PedidosState extends State<Pedidos> {
   }
 }
  
-class FirstScreen extends StatelessWidget {
+class PedidosCompletados extends StatelessWidget {
+  const PedidosCompletados({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -99,7 +101,9 @@ class FirstScreen extends StatelessWidget {
   }
 }
  
-class SecondScreen extends StatelessWidget {
+class PedidosPendientes extends StatelessWidget {
+  const PedidosPendientes({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
