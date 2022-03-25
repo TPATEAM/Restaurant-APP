@@ -4,7 +4,7 @@ class Order {
   int? idOrder;
   int? table;
   List<Platillo> platillos;
-  String? notesPlatillos;
+  List<String> notesPlatillos;
   String? code;
   String? waiter;
   DateTime date;
