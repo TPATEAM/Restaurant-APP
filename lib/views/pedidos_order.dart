@@ -40,6 +40,7 @@ class _PedidosOrderState extends State<PedidosOrder> {
           centerTitle: true,
           backgroundColor: Colors.white,
         ),
+        body: Container(),
       ),
     );
   }
