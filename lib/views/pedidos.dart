@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/views/pedidos_order.dart';
 import 'package:restaurant/widgets/utility/navbar.dart';
@@ -18,6 +19,16 @@ class _PedidosState extends State<Pedidos> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey.shade50,
+          backwardsCompatibility: false,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent
+          ),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
         length: 2,
