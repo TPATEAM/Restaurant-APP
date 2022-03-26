@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant/views/orderdetails.dart';
 
 class PedidosOrder extends StatefulWidget {
   final int numTable;
-  PedidosOrder({
+  const PedidosOrder({
     Key? key,
     required this.numTable
   }) : super(key: key);
@@ -28,13 +29,23 @@ class _PedidosOrderState extends State<PedidosOrder> {
               Navigator.pop(context);
             },
           ),
-          title: Text(
-            "Mesa #" + widget.numTable.toString(),
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w600,
-              fontSize: 25,
-              color: Colors.black54,
+          title: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OrderDetails(),
+                ),
+              );
+            },
+            child: Text(
+              "Mesa #" + widget.numTable.toString(),
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
+                fontSize: 25,
+                color: Colors.black54,
+              ),
             ),
           ),
           centerTitle: true,
