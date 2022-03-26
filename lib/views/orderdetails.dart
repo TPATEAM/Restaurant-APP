@@ -8,9 +8,24 @@ class OrderDetails extends StatefulWidget {
   State<OrderDetails> createState() => _OrderDetailsState();
 }
 
+enum tipoPedido { 
+  restaurant, 
+  delivery
+
+}
+
 class _OrderDetailsState extends State<OrderDetails> {
+  tipoPedido? _typeOrder = tipoPedido.restaurant;
+  Map<String, bool> values = {
+    'Sin Cebolla' : false,
+    'Sin Aguacate' : false,
+    'Sin Tomate' : false,
+    'Sin Cilantro' : false,
+  };
   @override
   Widget build(BuildContext context) {
+  final bool checkboxState;
+  final Function(bool?) toggleCheckboxState;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -39,7 +54,6 @@ class _OrderDetailsState extends State<OrderDetails> {
           elevation: 0,
         ),
         body: SingleChildScrollView(
-
           child: Container(
             margin: EdgeInsets.only(top: 15),
             width: MediaQuery.of(context).size.width,
@@ -99,16 +113,66 @@ class _OrderDetailsState extends State<OrderDetails> {
                   width: MediaQuery.of(context).size.width,
                   height: 1,
                   margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.1,
-                    right: MediaQuery.of(context).size.width * 0.1,
-                    top: 15
-                  ),
+                      left: MediaQuery.of(context).size.width * 0.1,
+                      right: MediaQuery.of(context).size.width * 0.1,
+                      top: 15),
                   color: Colors.grey.shade300,
                 ),
-                Radio(
-                  value: true,
-                  groupValue: null,
-                  onChanged: null,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Radio<tipoPedido>(
+                            value: tipoPedido.restaurant,
+                            groupValue: _typeOrder,
+                            onChanged: (tipoPedido? value) {
+                              setState(() {
+                                _typeOrder = value;
+                              });
+                            },
+                          ),
+                          Text(
+                            'Restaurante',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                              color: blackLight,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Radio<tipoPedido>(
+                            value: tipoPedido.delivery,
+                            groupValue: _typeOrder,
+                            onChanged: (tipoPedido? value) {
+                              setState(() {
+                                _typeOrder = value;
+                              });
+                            },
+                          ),
+                          Text(
+                            'Para Llevar',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                              color: blackLight,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
