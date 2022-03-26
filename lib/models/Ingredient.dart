@@ -5,7 +5,8 @@ class Ingredient {
   String? name;
   String? description;
   bool? type;
-  Double? price;
+  double? price;
+  bool? added;
 
   Ingredient({
     this.idIngredient,
