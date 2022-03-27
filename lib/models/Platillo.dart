@@ -6,7 +6,7 @@ class Platillo {
   String? description;
   double? price;
   String? imageUrl;
-  List<Ingredient> listaIngredientes;
+  String? listaIngredientes;
   int? idCategory;
 
   Platillo({
@@ -19,17 +19,13 @@ class Platillo {
     required this.idCategory,
   });
 
-  factory Platillo.fromJson(Map<String, dynamic> json) {
-    return Platillo(
-      idPlatillo: json['idPlatillo'],
-      name: json['name'],
-      description: json['description'],
-      price: json['price'],
-      imageUrl: json['imageUrl'],
-      listaIngredientes: (json['listaIngredientes'] as List<dynamic>)
-          .map((e) => Ingredient.fromJson(e))
-          .toList(),
-      idCategory: json['category'],
-    );
-  }
+  factory Platillo.fromJson(Map<String, dynamic> json) => Platillo(
+    idPlatillo: json['platilloId'],
+    name: json['platilloName'],
+    description: json['platilloDescription'],
+    price: json['platilloPrice'],
+    imageUrl: json['platilloImageUrl'],
+    listaIngredientes: json['platilloListaIngredientes'],
+    idCategory: json['platilloIdCategory'],
+  );
 }

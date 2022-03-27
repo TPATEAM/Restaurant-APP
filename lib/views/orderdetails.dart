@@ -123,53 +123,6 @@ class _OrderDetailsState extends State<OrderDetails> {
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Radio<tipoPedido>(
-                            value: tipoPedido.restaurant,
-                            groupValue: _typeOrder,
-                            onChanged: (tipoPedido? value) {
-                              setState(() {
-                                _typeOrder = value;
-                              });
-                            },
-                          ),
-                          Text(
-                            'Restaurante',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w600,
-                              color: blackLight,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Radio<tipoPedido>(
-                            value: tipoPedido.delivery,
-                            groupValue: _typeOrder,
-                            onChanged: (tipoPedido? value) {
-                              setState(() {
-                                _typeOrder = value;
-                              });
-                            },
-                          ),
-                          Text(
-                            'Para Llevar',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w600,
-                              color: blackLight,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          
-                        ],
                       ),
                     ],
                   ),

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant/values.dart';
 import 'package:restaurant/views/orderdetails.dart';
 
 class PedidosOrder extends StatefulWidget {
   final int numTable;
-  const PedidosOrder({
-    Key? key,
-    required this.numTable
-  }) : super(key: key);
+  const PedidosOrder({Key? key, required this.numTable}) : super(key: key);
 
   @override
   State<PedidosOrder> createState() => _PedidosOrderState();
 }
 
 class _PedidosOrderState extends State<PedidosOrder> {
+  final query = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -51,7 +50,50 @@ class _PedidosOrderState extends State<PedidosOrder> {
           centerTitle: true,
           backgroundColor: Colors.white,
         ),
-        body: Container(),
+        body: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+              child: TextField(
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 24,
+                ),
+                textInputAction: TextInputAction.next,
+                controller: query,
+                autofocus: false,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  hintText: 'Nombre del Platillo',
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.grey,
+                  ),
+                  contentPadding: EdgeInsets.all(10),
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
+                  ),
+                  labelText: 'Buscar Platillo',
+                  labelStyle: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.green, width: 2.0),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+            ),
+
+            
+
+          ],
+        ),
       ),
     );
   }
