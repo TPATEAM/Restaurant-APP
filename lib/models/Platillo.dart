@@ -1,31 +1,40 @@
-import 'package:restaurant/models/Ingredient.dart';
-
 class Platillo {
-  int? idPlatillo;
-  String? name;
-  String? description;
-  double? price;
-  String? imageUrl;
-  String? listaIngredientes;
-  int? idCategory;
+  int? platilloId;
+  String? platilloName;
+  String? platilloDescription;
+  int? platilloIdCategory;
+  String? platilloPrice;
+  String? platilloImageUrl;
+  String? platilloListaIngredientes;
 
-  Platillo({
-    required this.idPlatillo,
-    required this.name,
-    required this.description,
-    required this.price,
-    required this.imageUrl,
-    required this.listaIngredientes,
-    required this.idCategory,
-  });
+  Platillo(
+      {this.platilloId,
+      this.platilloName,
+      this.platilloDescription,
+      this.platilloIdCategory,
+      this.platilloPrice,
+      this.platilloImageUrl,
+      this.platilloListaIngredientes});
 
-  factory Platillo.fromJson(Map<String, dynamic> json) => Platillo(
-    idPlatillo: json['platilloId'],
-    name: json['platilloName'],
-    description: json['platilloDescription'],
-    price: json['platilloPrice'],
-    imageUrl: json['platilloImageUrl'],
-    listaIngredientes: json['platilloListaIngredientes'],
-    idCategory: json['platilloIdCategory'],
-  );
+  Platillo.fromJson(Map<String, dynamic> json) {
+    platilloId = json['platilloId'];
+    platilloName = json['platilloName'];
+    platilloDescription = json['platilloDescription'];
+    platilloIdCategory = json['platilloIdCategory'];
+    platilloPrice = json['platilloPrice'];
+    platilloImageUrl = json['platilloImageUrl'];
+    platilloListaIngredientes = json['platilloListaIngredientes'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['platilloId'] = platilloId;
+    data['platilloName'] = platilloName;
+    data['platilloDescription'] = platilloDescription;
+    data['platilloIdCategory'] = platilloIdCategory;
+    data['platilloPrice'] = platilloPrice;
+    data['platilloImageUrl'] = platilloImageUrl;
+    data['platilloListaIngredientes'] = platilloListaIngredientes;
+    return data;
+  }
 }

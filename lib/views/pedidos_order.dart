@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant/models/Platillo.dart';
+import 'package:restaurant/providers/provider_platillos.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/views/orderdetails.dart';
 
@@ -12,6 +14,17 @@ class PedidosOrder extends StatefulWidget {
 
 class _PedidosOrderState extends State<PedidosOrder> {
   final query = TextEditingController();
+  final List<Platillo> _platillos = [];
+  List<Platillo> _platillosDisplay = [];
+
+  @override
+  void initSate(){
+    fetchPlatillo().then((platillos){
+      _platillos.addAll(platillos);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -90,7 +103,15 @@ class _PedidosOrderState extends State<PedidosOrder> {
               ),
             ),
 
-            
+            ListView.builder(
+              itemBuilder: (context, index){
+
+              },
+              itemCount: ,
+
+
+
+            ),
 
           ],
         ),
