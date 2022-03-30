@@ -179,8 +179,8 @@ class LoginScreen extends StatelessWidget {
                           ),
                           child: TextButton(
                             onPressed: () {
-                              if (user.text == "admin" &&
-                                  pass.text == "admin") {
+                              if (user.text == "" &&
+                                  pass.text == "") {
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                         builder: (context) => HomeScreen()),

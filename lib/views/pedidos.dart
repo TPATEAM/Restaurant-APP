@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/views/pedidos_order.dart';
 import 'package:restaurant/widgets/utility/navbar.dart';
@@ -16,8 +18,20 @@ class Pedidos extends StatefulWidget {
 }
 
 class _PedidosState extends State<Pedidos> {
+  List<Platillo> listaPlatillos = [];
+  
+  void _platillos()
+  {
+    listaPlatillos.clear();
+    FirebaseFirestore.instance.collection('platillos').get().then((snapshot) {
+      snapshot.docs.forEach((document) {
+        listaPlatillos.add(Platillo.fromJson(document.data()));
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    _platillos();
     return MaterialApp(
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -87,7 +101,7 @@ class _PedidosState extends State<Pedidos> {
             onPressed: () {
               Navigator.push(context,
                 MaterialPageRoute(
-                  builder: (context) => PedidosOrder(numTable: widget.numTable),
+                  builder: (context) => PedidosOrder(numTable: widget.numTable, listaPlatillos: listaPlatillos),
                 )
               );
             },

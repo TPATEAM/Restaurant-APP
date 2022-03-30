@@ -21,21 +21,13 @@ class Platillo {
 
   factory Platillo.fromJson(Map<String, dynamic> json) {
     return Platillo(
-      idPlatillo: json['idPlatillo'],
-      name: json['name'],
+      idPlatillo: json['id'],
+      name: json['name'], 
       description: json['description'],
       price: double.parse(json['price'].toString()),
       imageUrl: json['imageUrl'],
-      listaIngredientes: json['listaIngredientes'],
-      idCategory: int.parse(json['c1ategory'].toString()),
+      listaIngredientes: json['idIngredientes'],
+      idCategory: json['idCategory'],
     );
-  }
-
-  List<Platillo> fromFbtoList(List<dynamic> lista) {
-    List<Platillo> listaPlatillos = [];
-    lista.forEach((element) {
-      listaPlatillos.add(Platillo.fromJson(element));
-    });
-    return listaPlatillos;
   }
 }

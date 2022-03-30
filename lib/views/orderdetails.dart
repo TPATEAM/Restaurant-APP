@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
 
 class OrderDetails extends StatefulWidget {
-  OrderDetails({Key? key}) : super(key: key);
+  Platillo platillo;
+  OrderDetails({
+    Key? key,
+    required this.platillo
+  }) : super(key: key);
 
   @override
   State<OrderDetails> createState() => _OrderDetailsState();
@@ -11,7 +16,6 @@ class OrderDetails extends StatefulWidget {
 enum tipoPedido { 
   restaurant, 
   delivery
-
 }
 
 class _OrderDetailsState extends State<OrderDetails> {
@@ -69,7 +73,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                         width: MediaQuery.of(context).size.width * 0.3,
                         height: 115,
                         child: Image.network(
-                          'https://cdn.kiwilimon.com/recetaimagen/29699/th5-640x640-31115.jpg',
+                          widget.platillo.imageUrl.toString(),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -78,7 +82,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                           Container(
                             width: MediaQuery.of(context).size.width * 0.6,
                             child: Text(
-                              'Coctel de Camarones',
+                              widget.platillo.name.toString(),
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontFamily: 'Inter',
@@ -92,7 +96,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                             width: MediaQuery.of(context).size.width * 0.6,
                             margin: EdgeInsets.only(bottom: 15),
                             child: Text(
-                              'Preparación a base de camarones generalmente crudos, aliñados o macerados en una mezcla de aceite de oliva o maíz, puré de jitomate o salsa catsup, cebolla picada y cilantro.',
+                              widget.platillo.description.toString(),
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
