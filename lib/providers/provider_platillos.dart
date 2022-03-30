@@ -1,24 +1,23 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import 'package:restaurant/models/platillo.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-List<Platillo> parsePlatillo(String responseBody)
-{
-  var list = json.decode(responseBody) as List<dynamic>;
-  var platillos = list.map((model) => Platillo.fromJson(model)).toList();
-  return platillos;
-}
-
-Future<List<Platillo>> fetchPlatillo() async {
-  const url = 'https://raw.githubusercontent.com/TPATEAM/Restaurant-APP/main/assets/data/platillos.json?token=GHSAT0AAAAAABRQS7N3OBLYO5BV5GADKSH4YSA2HVA';
-  final response = await http.get(Uri.parse(url));
-  if(response.statusCode == 200)
-  {
-    return compute(parsePlatillo, response.body);
+class ProviderPlatillos {
+  FirebaseFirestore firestore = FirebaseFirestore.instance; 
+  List<dynamic> Platillo = [];
+  ProviderPlatillos() {
+    loadData();
   }
-  else
-  {
-    throw Exception('Error al cargar los platillos');
+
+  void loadData() {
+    /*rootBundle.loadString('assets/data/platillos.json').then((data) {
+      Map dataMap = json.decode(data);
+      Platillo = dataMap['platillos'];
+    });*/
+    
+    
   }
 }
+

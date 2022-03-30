@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant/models/Platillo.dart';
-import 'package:restaurant/providers/provider_platillos.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/views/orderdetails.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PedidosOrder extends StatefulWidget {
   final int numTable;
@@ -13,20 +15,22 @@ class PedidosOrder extends StatefulWidget {
 }
 
 class _PedidosOrderState extends State<PedidosOrder> {
-  final query = TextEditingController();
-  final List<Platillo> _platillos = [];
-  List<Platillo> _platillosDisplay = [];
-
-  @override
-  void initSate(){
-    fetchPlatillo().then((platillos){
-      _platillos.addAll(platillos);
+  List<Platillo> listaPlatillos = [];
+  void _platillos()
+  {
+    FirebaseFirestore.instance.collection('platillos').get().then((snapshot) {
+      snapshot.docs.forEach((document) {
+        listaPlatillos.add(Platillo.fromJson(document.data()));
+      });
     });
-    super.initState();
   }
 
+  CollectionReference platillos =
+      FirebaseFirestore.instance.collection('platillos');
+  final query = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    _platillos();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -62,6 +66,7 @@ class _PedidosOrderState extends State<PedidosOrder> {
           ),
           centerTitle: true,
           backgroundColor: Colors.white,
+          elevation: 0,
         ),
         body: Column(
           children: [
@@ -73,7 +78,7 @@ class _PedidosOrderState extends State<PedidosOrder> {
                   fontWeight: FontWeight.w400,
                   fontSize: 24,
                 ),
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
                 controller: query,
                 autofocus: false,
                 decoration: InputDecoration(
@@ -102,17 +107,6 @@ class _PedidosOrderState extends State<PedidosOrder> {
                 ),
               ),
             ),
-
-            ListView.builder(
-              itemBuilder: (context, index){
-
-              },
-              itemCount: ,
-
-
-
-            ),
-
           ],
         ),
       ),

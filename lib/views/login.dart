@@ -19,9 +19,8 @@ class LoginScreen extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.grey.shade50,
           backwardsCompatibility: false,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent
-          ),
+          systemOverlayStyle:
+              SystemUiOverlayStyle(statusBarColor: Colors.transparent),
         ),
       ),
       home: Hero(
@@ -43,7 +42,8 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('assets/images/profile_picture.png',
+                    Image.asset(
+                      'assets/images/profile_picture.png',
                       width: 80,
                     ),
                   ],
@@ -57,23 +57,25 @@ class LoginScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
-                      boxShadow: const [ BoxShadow(
-                        color: Colors.black,
-                        blurRadius: 15,
-                        offset: Offset(0, 3),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black,
+                          blurRadius: 15,
+                          offset: Offset(0, 3),
                         ),
                       ],
                     ),
                     child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
                           height: 30,
                         ),
                         Container(
                           padding: EdgeInsets.all(5),
-                          child: Text('Bienvenido', style: 
-                            TextStyle(
+                          child: Text(
+                            'Bienvenido',
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w600,
                               fontSize: 38,
@@ -84,9 +86,10 @@ class LoginScreen extends StatelessWidget {
                           height: 30,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 30),
-                          child: TextField(style: 
-                            TextStyle(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+                          child: TextField(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w400,
                               fontSize: 24,
@@ -108,12 +111,14 @@ class LoginScreen extends StatelessWidget {
                                 color: Colors.grey,
                                 fontSize: 18,
                               ),
-                              labelText: 'Empleado', labelStyle: TextStyle(
+                              labelText: 'Empleado',
+                              labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.grey,
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green, width: 2.0),
+                                borderSide:
+                                    BorderSide(color: Colors.green, width: 2.0),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
@@ -123,9 +128,10 @@ class LoginScreen extends StatelessWidget {
                           height: 40,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 30),
-                          child: TextField(style: 
-                            TextStyle(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+                          child: TextField(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w400,
                               fontSize: 24,
@@ -148,12 +154,14 @@ class LoginScreen extends StatelessWidget {
                                 color: Colors.grey,
                                 fontSize: 18,
                               ),
-                              labelText: 'Contraseña', labelStyle: TextStyle(
+                              labelText: 'Contraseña',
+                              labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.grey,
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green, width: 2.0),
+                                borderSide:
+                                    BorderSide(color: Colors.green, width: 2.0),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
@@ -171,16 +179,13 @@ class LoginScreen extends StatelessWidget {
                           ),
                           child: TextButton(
                             onPressed: () {
-                              if(user.text == "" && pass.text == ""){
+                              if (user.text == "admin" &&
+                                  pass.text == "admin") {
                                 Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                    builder: (context) => HomeScreen()
-                                  ),
-                                  (Route<dynamic> route) => false
-                                );
-                              }
-                              else
-                              {
+                                    MaterialPageRoute(
+                                        builder: (context) => HomeScreen()),
+                                    (Route<dynamic> route) => false);
+                              } else {
                                 showDialog(
                                   context: context,
                                   builder: (context) {
@@ -199,11 +204,14 @@ class LoginScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      content: Text("Usuario o contraseña incorrectos"),
+                                      content: Text(
+                                          "Usuario o contraseña incorrectos"),
                                       actions: [
-                                          TextButton(
+                                        TextButton(
                                           child: const Text("OK"),
-                                          onPressed: Navigator.of(context, rootNavigator: true).pop,
+                                          onPressed: Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .pop,
                                         ),
                                       ],
                                     );
@@ -214,8 +222,9 @@ class LoginScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
-                                Text('Ingresar', style: 
-                                  TextStyle(
+                                Text(
+                                  'Ingresar',
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontWeight: FontWeight.w600,
                                     fontSize: 25,
@@ -226,7 +235,7 @@ class LoginScreen extends StatelessWidget {
                                   width: 15,
                                 ),
                                 Icon(
-                                  Icons.arrow_forward, 
+                                  Icons.arrow_forward,
                                   color: Colors.white,
                                   size: 36,
                                 ),
@@ -239,15 +248,16 @@ class LoginScreen extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {},
-                          child: Text('¿Olvidaste tu contraseña?', style: 
-                            TextStyle(
+                          child: Text(
+                            '¿Olvidaste tu contraseña?',
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                               color: fusionRed,
                             ),
                           ),
-                        ),                    
+                        ),
                         SizedBox(
                           height: 40,
                         ),

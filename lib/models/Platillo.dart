@@ -1,40 +1,41 @@
+import 'package:restaurant/models/Ingredient.dart';
+
 class Platillo {
-  int? platilloId;
-  String? platilloName;
-  String? platilloDescription;
-  int? platilloIdCategory;
-  String? platilloPrice;
-  String? platilloImageUrl;
-  String? platilloListaIngredientes;
+  int? idPlatillo;
+  String? name;
+  String? description;
+  double? price;
+  String? imageUrl;
+  String? listaIngredientes;
+  int? idCategory;
 
-  Platillo(
-      {this.platilloId,
-      this.platilloName,
-      this.platilloDescription,
-      this.platilloIdCategory,
-      this.platilloPrice,
-      this.platilloImageUrl,
-      this.platilloListaIngredientes});
+  Platillo({
+    required this.idPlatillo,
+    required this.name,
+    required this.description,
+    required this.price,
+    required this.imageUrl,
+    required this.listaIngredientes,
+    required this.idCategory,
+  });
 
-  Platillo.fromJson(Map<String, dynamic> json) {
-    platilloId = json['platilloId'];
-    platilloName = json['platilloName'];
-    platilloDescription = json['platilloDescription'];
-    platilloIdCategory = json['platilloIdCategory'];
-    platilloPrice = json['platilloPrice'];
-    platilloImageUrl = json['platilloImageUrl'];
-    platilloListaIngredientes = json['platilloListaIngredientes'];
+  factory Platillo.fromJson(Map<String, dynamic> json) {
+    return Platillo(
+      idPlatillo: json['idPlatillo'],
+      name: json['name'],
+      description: json['description'],
+      price: double.parse(json['price'].toString()),
+      imageUrl: json['imageUrl'],
+      listaIngredientes: json['listaIngredientes'],
+      idCategory: int.parse(json['c1ategory'].toString()),
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['platilloId'] = platilloId;
-    data['platilloName'] = platilloName;
-    data['platilloDescription'] = platilloDescription;
-    data['platilloIdCategory'] = platilloIdCategory;
-    data['platilloPrice'] = platilloPrice;
-    data['platilloImageUrl'] = platilloImageUrl;
-    data['platilloListaIngredientes'] = platilloListaIngredientes;
-    return data;
+  List<Platillo> fromFbtoList(List<dynamic> lista) {
+    List<Platillo> listaPlatillos = [];
+    lista.forEach((element) {
+      listaPlatillos.add(Platillo.fromJson(element));
+    });
+    return listaPlatillos;
   }
 }
