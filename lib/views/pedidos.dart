@@ -8,9 +8,9 @@ import 'package:restaurant/widgets/utility/navbar.dart';
 
 class Pedidos extends StatefulWidget {
   final int numTable;
-  Pedidos({
+  const Pedidos({
     Key? key,
-    required this.numTable
+    required this.numTable,
   }) : super(key: key);
 
   @override
@@ -18,17 +18,20 @@ class Pedidos extends StatefulWidget {
 }
 
 class _PedidosState extends State<Pedidos> {
-  List<Platillo> listaPlatillos = [];
-  
-  void _platillos()
-  {
-    listaPlatillos.clear();
-    FirebaseFirestore.instance.collection('platillos').get().then((snapshot) {
+  List<Platillo> platillos = [];
+
+  void _platillos() async {
+    platillos.clear();
+    await FirebaseFirestore.instance
+        .collection('Platillos')
+        .get()
+        .then((snapshot) {
       snapshot.docs.forEach((document) {
-        listaPlatillos.add(Platillo.fromJson(document.data()));
+        platillos.add(Platillo.fromJson(document.data()));
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     _platillos();
@@ -38,9 +41,8 @@ class _PedidosState extends State<Pedidos> {
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.grey.shade50,
           backwardsCompatibility: false,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent
-          ),
+          systemOverlayStyle:
+              SystemUiOverlayStyle(statusBarColor: Colors.transparent),
         ),
       ),
       debugShowCheckedModeBanner: false,
@@ -48,10 +50,12 @@ class _PedidosState extends State<Pedidos> {
         length: 2,
         child: Scaffold(
           appBar: PreferredSize(
-          preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.11),
+            preferredSize:
+                Size.fromHeight(MediaQuery.of(context).size.height * 0.11),
             child: AppBar(
               leading: IconButton(
-                icon: Icon(Icons.arrow_back_sharp,
+                icon: Icon(
+                  Icons.arrow_back_sharp,
                   color: Colors.grey.shade400,
                   size: 30,
                 ),
@@ -69,18 +73,15 @@ class _PedidosState extends State<Pedidos> {
                 ),
                 labelColor: orangeHibiscus,
                 indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(
-                    color: orangeHibiscus,
-                    width: 3
-                  ),
-                  insets: EdgeInsets.symmetric(horizontal: 20)
-                ),
+                    borderSide: BorderSide(color: orangeHibiscus, width: 3),
+                    insets: EdgeInsets.symmetric(horizontal: 20)),
                 tabs: const [
                   Tab(text: 'COMPLETADOS'),
                   Tab(text: 'PENDIENTES'),
                 ],
               ),
-              title: Text("Mesa #" + widget.numTable.toString(),
+              title: Text(
+                "Mesa #" + widget.numTable.toString(),
                 style: TextStyle(
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w600,
@@ -99,11 +100,12 @@ class _PedidosState extends State<Pedidos> {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Navigator.push(context,
-                MaterialPageRoute(
-                  builder: (context) => PedidosOrder(numTable: widget.numTable, listaPlatillos: listaPlatillos),
-                )
-              );
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PedidosOrder(
+                        numTable: widget.numTable, listaPlatillos: platillos),
+                  ));
             },
             child: Icon(Icons.add),
             backgroundColor: reptileGreen,
@@ -114,7 +116,7 @@ class _PedidosState extends State<Pedidos> {
     );
   }
 }
- 
+
 class PedidosCompletados extends StatelessWidget {
   const PedidosCompletados({Key? key}) : super(key: key);
 
@@ -124,15 +126,13 @@ class PedidosCompletados extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
             body: Center(
-              child: 
-              Text('Pedidos Completados', 
-                style: TextStyle(fontSize: 21),)
-              )
-            )
-          );
+                child: Text(
+          'Pedidos Completados',
+          style: TextStyle(fontSize: 21),
+        ))));
   }
 }
- 
+
 class PedidosPendientes extends StatelessWidget {
   const PedidosPendientes({Key? key}) : super(key: key);
 
@@ -142,11 +142,9 @@ class PedidosPendientes extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
             body: Center(
-              child: 
-              Text('Pedidos Pendientes',
-                style: TextStyle(fontSize: 21),)
-              )
-            )
-          );
+                child: Text(
+          'Pedidos Pendientes',
+          style: TextStyle(fontSize: 21),
+        ))));
   }
 }

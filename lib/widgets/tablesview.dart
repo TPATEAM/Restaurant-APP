@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/views/pedidos.dart';
 
 class TablesView extends StatefulWidget {
   final int numTable;
+
   const TablesView({
     Key? key,
     required this.numTable,

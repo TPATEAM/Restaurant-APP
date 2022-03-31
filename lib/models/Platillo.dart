@@ -1,5 +1,3 @@
-import 'package:restaurant/models/Ingredient.dart';
-
 class Platillo {
   int? idPlatillo;
   String? name;
