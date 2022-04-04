@@ -212,7 +212,6 @@ class _PedidosOrderState extends State<PedidosOrder> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
-                        //Imagen
                         children: [
                           SizedBox(
                             width: 110,
@@ -228,14 +227,11 @@ class _PedidosOrderState extends State<PedidosOrder> {
                         ],
                       ),
                       Column(
-                        //Info Platillo
                         children: [
                           Row(
-                            //Nombre
                             children: [
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.68,
-                                // color: reptileGreen,
                                 child: Text(
                                   listaPlatillosSearch
                                       .elementAt(index)
@@ -253,11 +249,9 @@ class _PedidosOrderState extends State<PedidosOrder> {
                             ],
                           ),
                           Row(
-                            //Descripcion
                             children: [
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.68,
-                                // color: orangeHibiscus,
                                 child: Text(
                                   listaPlatillosSearch
                                       .elementAt(index)
@@ -276,7 +270,6 @@ class _PedidosOrderState extends State<PedidosOrder> {
                             ],
                           ),
                           Row(
-                            //Precio
                             children: [
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.68,
