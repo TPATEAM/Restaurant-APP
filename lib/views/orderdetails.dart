@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurant/models/Ingredient.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
 
@@ -19,17 +21,29 @@ enum tipoPedido {
 }
 
 class _OrderDetailsState extends State<OrderDetails> {
+  List<Ingredient> ingredientes = [];
   tipoPedido? _typeOrder = tipoPedido.restaurant;
-  Map<String, bool> values = {
-    'Sin Cebolla' : false,
-    'Sin Aguacate' : false,
-    'Sin Tomate' : false,
-    'Sin Cilantro' : false,
-  };
+
+  void _loadIngredientes() async {
+    ingredientes.clear();
+    await FirebaseFirestore.instance
+        .collection('Ingredient')
+        .get()
+        .then((snapshot) {
+      snapshot.docs.forEach((document) {
+        ingredientes.add(Ingredient.fromJson(document.data()));
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    _loadIngredientes();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-  final bool checkboxState;
-  final Function(bool?) toggleCheckboxState;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -70,7 +84,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                     children: [
                       Container(
                         margin: EdgeInsets.only(right: 15),
-                        width: MediaQuery.of(context).size.width * 0.3,
+                        width: MediaQuery.of(context).size.width * 0.2,
                         height: 115,
                         child: Image.network(
                           widget.platillo.imageUrl.toString(),
@@ -80,7 +94,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                       Column(
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
+                            width: MediaQuery.of(context).size.width * 0.7,
                             child: Text(
                               widget.platillo.name.toString(),
                               overflow: TextOverflow.ellipsis,
@@ -90,10 +104,11 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 fontSize: 20,
                                 color: blackLight,
                               ),
+                              maxLines: 1,
                             ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
+                            width: MediaQuery.of(context).size.width * 0.7,
                             margin: EdgeInsets.only(bottom: 15),
                             child: Text(
                               widget.platillo.description.toString(),
@@ -104,7 +119,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 color: blackLight,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              maxLines: 3,
+                              maxLines: 4,
                               textAlign: TextAlign.justify,
                             ),
                           ),
@@ -119,7 +134,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                   margin: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.1,
                       right: MediaQuery.of(context).size.width * 0.1,
-                      top: 15),
+                      top: 5),
                   color: Colors.grey.shade300,
                 ),
                 SizedBox(
@@ -172,7 +187,10 @@ class _OrderDetailsState extends State<OrderDetails> {
                       ),
                       Column(
                         children: [
-                          
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            color: fusionRed,
+                          ),
                         ],
                       ),
                     ],

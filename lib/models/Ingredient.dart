@@ -22,7 +22,7 @@ class Ingredient {
       name: json['name'],
       description: json['description'],
       type: json['type'],
-      price: json['price'],
+      price: double.parse(json['price']),
     );
   }
 }

@@ -33,8 +33,13 @@ class _PedidosState extends State<Pedidos> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     _platillos();
+    super.initState();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
