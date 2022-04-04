@@ -1,8 +1,8 @@
 class Employee {
-  String? idEmployee;
+  int? idEmployee;
   String? name;
   String? lastName;
-  String? role;
+  int? role;
   String? username;
   String? password;
 
@@ -17,10 +17,10 @@ class Employee {
 
   factory Employee.fromJson(Map<String, dynamic> json) {
     return Employee(
-      idEmployee: json['idEmployee'],
+      idEmployee: int.parse(json['idEmployee']),
       name: json['name'],
       lastName: json['lastName'],
-      role: json['role'],
+      role: int.parse(json['role']),
       username: json['username'],
       password: json['password'],
     );
