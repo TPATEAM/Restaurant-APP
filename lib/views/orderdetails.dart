@@ -87,7 +87,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                     children: [
                       Container(
                         margin: EdgeInsets.only(right: 15),
-                        width: MediaQuery.of(context).size.width * 0.2,
+                        width: MediaQuery.of(context).size.width * 0.26,
                         height: 115,
                         child: Image.network(
                           widget.platillo.imageUrl.toString(),
@@ -97,7 +97,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                       Column(
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            width: MediaQuery.of(context).size.width * 0.65,
                             child: Text(
                               widget.platillo.name.toString(),
                               overflow: TextOverflow.ellipsis,
@@ -111,7 +111,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                             ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            width: MediaQuery.of(context).size.width * 0.65,
                             margin: EdgeInsets.only(bottom: 15),
                             child: Text(
                               widget.platillo.description.toString(),
