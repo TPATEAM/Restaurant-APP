@@ -6,19 +6,18 @@ import 'package:restaurant/values.dart';
 
 class OrderDetails extends StatefulWidget {
   Platillo platillo;
+  List<Ingredient>? ingredientes;
   OrderDetails({
     Key? key,
-    required this.platillo
+    required this.platillo,
+    this.ingredientes,
   }) : super(key: key);
 
   @override
   State<OrderDetails> createState() => _OrderDetailsState();
 }
 
-enum tipoPedido { 
-  restaurant, 
-  delivery
-}
+enum tipoPedido { restaurant, delivery }
 
 class _OrderDetailsState extends State<OrderDetails> {
   List<Ingredient> ingredientes = [];
