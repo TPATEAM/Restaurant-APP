@@ -1,12 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurant/models/Category.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/views/orderdetails.dart';
 
 class PedidosOrder extends StatefulWidget {
   final int numTable;
-  final List<Platillo> listaPlatillos;
-  const PedidosOrder(
-      {Key? key, required this.numTable, required this.listaPlatillos})
+  List<Platillo>? listaPlatillos;
+  PedidosOrder(
+      {Key? key, required this.numTable, this.listaPlatillos})
       : super(key: key);
 
   @override
@@ -14,11 +16,12 @@ class PedidosOrder extends StatefulWidget {
 }
 
 class _PedidosOrderState extends State<PedidosOrder> {
+
   final query = TextEditingController();
   List<Platillo> listaPlatillosSearch = [];
   @override
   Widget build(BuildContext context) {
-    listaPlatillosSearch = widget.listaPlatillos;
+    listaPlatillosSearch = widget.listaPlatillos!;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -42,7 +45,7 @@ class _PedidosOrderState extends State<PedidosOrder> {
                         textInputAction: TextInputAction.done,
                         controller: query,
                         onChanged: (value) {
-                          findPlatillo(value);
+                          print(listaPlatillosSearch.length);
                         },
                         autofocus: false,
                         decoration: InputDecoration(
@@ -100,161 +103,7 @@ class _PedidosOrderState extends State<PedidosOrder> {
           backgroundColor: Colors.white,
           elevation: 0,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.77,
-                width: MediaQuery.of(context).size.width,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: listaPlatillosSearch.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => OrderDetails(
-                                    platillo: listaPlatillosSearch
-                                        .elementAt(index))));
-                      },
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(bottom: 7),
-                                width: 100,
-                                height: 128,
-                                child: Image.network(
-                                  listaPlatillosSearch[index]
-                                      .imageUrl
-                                      .toString(),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.70,
-                                    child: Text(
-                                      listaPlatillosSearch
-                                          .elementAt(index)
-                                          .name
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 20,
-                                        color: Colors.grey.shade900,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      maxLines: 1,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.70,
-                                    child: Text(
-                                      listaPlatillosSearch
-                                          .elementAt(index)
-                                          .description
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18,
-                                        color: Colors.black38,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      maxLines: 3,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.70,
-                                    child: Text(
-                                      '\$' +
-                                          listaPlatillosSearch
-                                              .elementAt(index)
-                                              .price
-                                              .toString(),
-                                      style: TextStyle(
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
-                                        color: Colors.black38,
-                                      ),
-                                      textAlign: TextAlign.right,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
-
-  void findPlatillo(String value) {
-    List<Data> listadoPlatillos = [];
-    value = value.toLowerCase();
-    List<String> keys = value.split(" ");
-    for (int i = 0; i < widget.listaPlatillos.length; i++) 
-    {
-      listadoPlatillos.add(Data(
-          posiciones: null,
-          platillo: widget.listaPlatillos.elementAt(i),
-          ocurrencias: 0));
-
-      if (keys.length > 1) 
-      {
-        for (int j = 0; j < keys.length; j++) 
-        {
-          if(widget.listaPlatillos.elementAt(i).name!.toLowerCase().indexOf(keys[j]) > -1)
-          {
-            listadoPlatillos.elementAt(i).ocurrencias = listadoPlatillos.elementAt(i).ocurrencias! + 1;
-            listadoPlatillos.elementAt(i).posiciones!.add(widget.listaPlatillos.elementAt(i).name!.toLowerCase().indexOf(keys[j]));
-          }
-        }
-      }
-    }
-    setState(() {});
-  }
-}
-
-class Data {
-  List<int>? posiciones;
-  Platillo? platillo;
-  int? ocurrencias;
-
-  Data({this.posiciones, this.platillo, this.ocurrencias});
 }

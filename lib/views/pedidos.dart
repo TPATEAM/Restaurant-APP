@@ -123,13 +123,16 @@ class PedidosCompletados extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-            body: Center(
-                child: Text(
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(
+      body: Center(
+        child: Text(
           'Pedidos Completados',
-          style: TextStyle(fontSize: 21),
-        ))));
+            style: TextStyle(fontSize: 21),
+          ),
+        ),
+      ),
+    );
   }
 }
 
