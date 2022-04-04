@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:restaurant/models/Category.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/views/pedidos_order.dart';
@@ -19,8 +20,9 @@ class Pedidos extends StatefulWidget {
 
 class _PedidosState extends State<Pedidos> {
   List<Platillo> platillos = [];
+  List<Category> categorias = [];
 
-  void _platillos() async {
+  void _loadPlatillos() async {
     platillos.clear();
     await FirebaseFirestore.instance
         .collection('Platillos')
@@ -31,10 +33,23 @@ class _PedidosState extends State<Pedidos> {
       });
     });
   }
+  
+  void _loadCategories() async {
+    categorias.clear();
+    await FirebaseFirestore.instance
+        .collection('Category')
+        .get()
+        .then((snapshot) {
+      snapshot.docs.forEach((document) {
+        categorias.add(Category.fromJson(document.data()));
+      });
+    });
+  }
 
   @override
   void initState() {
-    _platillos();
+    _loadPlatillos();
+    _loadCategories();
     super.initState();
   }
   
@@ -109,7 +124,7 @@ class _PedidosState extends State<Pedidos> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => PedidosOrder(
-                        numTable: widget.numTable, listaPlatillos: platillos),
+                        numTable: widget.numTable, listaPlatillos: platillos, listaCategorias: categorias),
                   ));
             },
             child: Icon(Icons.add),

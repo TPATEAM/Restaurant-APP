@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 /*--------------- [ COLORS ] ---------------*/
 const Color reptileGreen = Color(0xFF26DE81);
+const Color ligthGreen = Color.fromARGB(255, 178, 254, 216);
 const Color highBlue = Color(0xFF45AAF2);
 const Color twinkleBlue = Color(0xFFD1D8E0);
 const Color fusionRed = Color(0xFFFC5C65);

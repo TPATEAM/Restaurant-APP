@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant/models/Category.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/views/orderdetails.dart';
@@ -6,7 +7,12 @@ import 'package:restaurant/views/orderdetails.dart';
 class PedidosOrder extends StatefulWidget {
   final int numTable;
   List<Platillo>? listaPlatillos;
-  PedidosOrder({Key? key, required this.numTable, this.listaPlatillos})
+  List<Category>? listaCategorias;
+  PedidosOrder(
+      {Key? key,
+      required this.numTable,
+      this.listaPlatillos,
+      this.listaCategorias})
       : super(key: key);
 
   @override
@@ -14,14 +20,19 @@ class PedidosOrder extends StatefulWidget {
 }
 
 class _PedidosOrderState extends State<PedidosOrder> {
+  int currentIdx = -1;
   final query = TextEditingController();
   late List<Platillo> listaPlatillosSearch =
       widget.listaPlatillos as List<Platillo>;
+  late List<Category> categorias = widget.listaCategorias as List<Category>;
 
   @override
   void initState() {
     if (listaPlatillosSearch.isEmpty) {
       listaPlatillosSearch = widget.listaPlatillos as List<Platillo>;
+    }
+    if (categorias.isEmpty) {
+      categorias = widget.listaCategorias as List<Category>;
     }
     super.initState();
   }
@@ -100,9 +111,56 @@ class _PedidosOrderState extends State<PedidosOrder> {
                   ),
                 ),
                 Container(
-                  color: fusionRed,
+                  margin: EdgeInsets.only(bottom: 10),
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.08,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categorias.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            if(currentIdx == index)
+                            {
+                              listaPlatillosSearch = widget.listaPlatillos as List<Platillo>;
+                              currentIdx = -1;
+                            }
+                            else
+                            {
+                              listaPlatillosSearch = widget.listaPlatillos
+                                    ?.where((platillo) => 
+                                        platillo.idCategory == index)
+                                    .toList() as List<Platillo>;
+                              currentIdx = index;
+                            }
+                            
+                            setState(() {});
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: currentIdx == index ? reptileGreen : ligthGreen,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            height: MediaQuery.of(context).size.height * 0.04,
+                            margin: EdgeInsets.only(left: 5, right: 5),
+                            child: Center(
+                              child: Text(
+                                categorias.elementAt(index).name.toString(),
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: currentIdx == index ? blackLight : Colors.grey.shade500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
                 ),
               ],
             ),
@@ -130,10 +188,10 @@ class _PedidosOrderState extends State<PedidosOrder> {
           backgroundColor: Colors.white,
           elevation: 0,
         ),
-        body: SizedBox(
+        body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          // color: fusionRed,
+          color: Colors.white,
           child: ListView.builder(
             itemCount: listaPlatillosSearch.length,
             itemBuilder: (context, index) {
