@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant/models/Ingredient.dart';
 import 'package:restaurant/models/Platillo.dart';
@@ -6,11 +5,11 @@ import 'package:restaurant/values.dart';
 
 class OrderDetails extends StatefulWidget {
   Platillo platillo;
-  List<Ingredient>? ingredientes;
+  List<Ingredient> ingredientes;
   OrderDetails({
     Key? key,
     required this.platillo,
-    this.ingredientes,
+    required this.ingredientes,
   }) : super(key: key);
 
   @override
@@ -20,28 +19,29 @@ class OrderDetails extends StatefulWidget {
 enum tipoPedido { restaurant, delivery }
 
 class _OrderDetailsState extends State<OrderDetails> {
-  List<Ingredient> ingredientes = [];
   tipoPedido? _typeOrder = tipoPedido.restaurant;
-
-  void _loadIngredientes() async {
-    ingredientes.clear();
-    await FirebaseFirestore.instance
-        .collection('Ingredient')
-        .get()
-        .then((snapshot) {
-      snapshot.docs.forEach((document) {
-        ingredientes.add(Ingredient.fromJson(document.data()));
-      });
-    });
+  late List<Ingredient> ingredientes = widget.ingredientes; 
+  List<Ingredient> ingredientesPlatillo = [];
+  
+  void _addIngredientesPlatillo()
+  {
+    ingredientesPlatillo.clear();
+    List<String> ingredientesID = widget.platillo.listaIngredientes!.split('|');
+    for(int i = 0; i < ingredientesID.length; i++)
+    {
+      for(int j = 0; j < ingredientes.length; j++)
+      {
+        if(ingredientes.elementAt(j).idIngredient == int.parse(ingredientesID[i]))
+        {
+          ingredientesPlatillo.add(ingredientes[j]);
+        }
+      }
+    }
   }
 
   @override
   void initState() {
-    _loadIngredientes();
-    List<String> ingr = widget.platillo.listaIngredientes!.split('|');
-    for(int i = 0; i < ingr.length; i++){
-      print(ingr.elementAt(i));
-    }
+    _addIngredientesPlatillo();
     super.initState();
   }
 
@@ -192,16 +192,18 @@ class _OrderDetailsState extends State<OrderDetails> {
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.8,
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            color: fusionRed,
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(widget.platillo.listaIngredientes.toString()),
-                                  ],
-                                ),
-                              ],
+                            height: ingredientesPlatillo.isEmpty ? 
+                                    MediaQuery.of(context).size.height * 0.05 :
+                                    MediaQuery.of(context).size.height * 0.3,
+                            child: ingredientesPlatillo.isEmpty ? 
+                            Center(
+                              child: Text('No hay ingredientes.'),
+                            ) :
+                            ListView.builder(
+                              itemCount: ingredientesPlatillo.length,
+                              itemBuilder: (context, index) {
+                                return Text(ingredientesPlatillo.elementAt(index).name.toString());
+                              },
                             ),
                           ),
                         ],

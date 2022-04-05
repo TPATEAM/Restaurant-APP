@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:restaurant/models/Category.dart';
+import 'package:restaurant/models/Ingredient.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/views/pedidos_order.dart';
@@ -21,6 +22,7 @@ class Pedidos extends StatefulWidget {
 class _PedidosState extends State<Pedidos> {
   List<Platillo> platillos = [];
   List<Category> categorias = [];
+  List<Ingredient> ingredientes = [];
 
   void _loadPlatillos() async {
     platillos.clear();
@@ -30,6 +32,18 @@ class _PedidosState extends State<Pedidos> {
         .then((snapshot) {
       snapshot.docs.forEach((document) {
         platillos.add(Platillo.fromJson(document.data()));
+      });
+    });
+  }
+
+  void _loadIngredients() async {
+    ingredientes.clear();
+    await FirebaseFirestore.instance
+        .collection('Ingredient')
+        .get()
+        .then((snapshot) {
+      snapshot.docs.forEach((document) {
+        ingredientes.add(Ingredient.fromJson(document.data()));
       });
     });
   }
@@ -50,6 +64,7 @@ class _PedidosState extends State<Pedidos> {
   void initState() {
     _loadPlatillos();
     _loadCategories();
+    _loadIngredients();
     super.initState();
   }
   
@@ -124,7 +139,11 @@ class _PedidosState extends State<Pedidos> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => PedidosOrder(
-                        numTable: widget.numTable, listaPlatillos: platillos, listaCategorias: categorias),
+                        numTable: widget.numTable, 
+                        listaPlatillos: platillos, 
+                        listaCategorias: categorias,
+                        listaIngredientes: ingredientes
+                      ),
                   ));
             },
             child: Icon(Icons.add),

@@ -11,7 +11,7 @@ class Ingredient {
 
   factory Ingredient.fromJson(Map<String, dynamic> json) {
     return Ingredient(
-      idIngredient: json['idIngredient'],
+      idIngredient: json['id'],
       name: json['name'],
       price: double.parse(json['price']),
     );

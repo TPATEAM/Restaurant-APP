@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant/models/Category.dart';
+import 'package:restaurant/models/Ingredient.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/views/orderdetails.dart';
@@ -8,11 +9,14 @@ class PedidosOrder extends StatefulWidget {
   final int numTable;
   List<Platillo>? listaPlatillos;
   List<Category>? listaCategorias;
+  List<Ingredient>? listaIngredientes;
   PedidosOrder(
       {Key? key,
       required this.numTable,
       this.listaPlatillos,
-      this.listaCategorias})
+      this.listaCategorias,
+      this.listaIngredientes
+    })
       : super(key: key);
 
   @override
@@ -25,6 +29,8 @@ class _PedidosOrderState extends State<PedidosOrder> {
   late List<Platillo> listaPlatillosSearch =
       widget.listaPlatillos as List<Platillo>;
   late List<Category> categorias = widget.listaCategorias as List<Category>;
+  late List<Ingredient> ingredientes =
+      widget.listaIngredientes as List<Ingredient>;
 
   @override
   void initState() {
@@ -201,7 +207,9 @@ class _PedidosOrderState extends State<PedidosOrder> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => OrderDetails(
-                          platillo: listaPlatillosSearch.elementAt(index)),
+                          platillo: listaPlatillosSearch.elementAt(index),
+                          ingredientes: ingredientes, 
+                        ),
                     ),
                   );
                 },
