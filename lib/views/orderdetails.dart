@@ -39,6 +39,10 @@ class _OrderDetailsState extends State<OrderDetails> {
   @override
   void initState() {
     _loadIngredientes();
+    List<String> ingr = widget.platillo.listaIngredientes!.split('|');
+    for(int i = 0; i < ingr.length; i++){
+      print(ingr.elementAt(i));
+    }
     super.initState();
   }
 
@@ -189,7 +193,17 @@ class _OrderDetailsState extends State<OrderDetails> {
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.8,
+                            height: MediaQuery.of(context).size.height * 0.3,
                             color: fusionRed,
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(widget.platillo.listaIngredientes.toString()),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
