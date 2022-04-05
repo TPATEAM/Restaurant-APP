@@ -1,47 +1,25 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurant/models/Category.dart';
 import 'package:restaurant/models/Ingredient.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
-import 'package:restaurant/views/order_confirmation.dart';
+import 'package:restaurant/views/orderdetails.dart';
 
-class OrderDetails extends StatefulWidget {
+class OrderConfirmation extends StatefulWidget {
   Platillo platillo;
   List<Ingredient>? ingredientes;
-  OrderDetails({
+  OrderConfirmation({
     Key? key,
     required this.platillo,
     this.ingredientes,
+    tipoPedido? typeOrder,
   }) : super(key: key);
 
   @override
-  State<OrderDetails> createState() => _OrderDetailsState();
+  State<OrderConfirmation> createState() => _OrderConfirmationState();
 }
 
-enum tipoPedido { restaurant, delivery }
-
-class _OrderDetailsState extends State<OrderDetails> {
-  List<Ingredient> ingredientes = [];
-  tipoPedido? _typeOrder = tipoPedido.restaurant;
-
-  void _loadIngredientes() async {
-    ingredientes.clear();
-    await FirebaseFirestore.instance
-        .collection('Ingredient')
-        .get()
-        .then((snapshot) {
-      snapshot.docs.forEach((document) {
-        ingredientes.add(Ingredient.fromJson(document.data()));
-      });
-    });
-  }
-
-  @override
-  void initState() {
-    _loadIngredientes();
-    super.initState();
-  }
-
+class _OrderConfirmationState extends State<OrderConfirmation> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -137,82 +115,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                       top: 5),
                   color: Colors.grey.shade300,
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Radio<tipoPedido>(
-                            value: tipoPedido.restaurant,
-                            groupValue: _typeOrder,
-                            onChanged: (tipoPedido? value) {
-                              setState(() {
-                                _typeOrder = value;
-                              });
-                            },
-                          ),
-                          Text(
-                            'Restaurante',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w600,
-                              color: blackLight,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Radio<tipoPedido>(
-                            value: tipoPedido.delivery,
-                            groupValue: _typeOrder,
-                            onChanged: (tipoPedido? value) {
-                              setState(() {
-                                _typeOrder = value;
-                              });
-                            },
-                          ),
-                          Text(
-                            'Para Llevar',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w600,
-                              color: blackLight,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            color: fusionRed,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OrderConfirmation(
-                      platillo: widget.platillo,
-                      ingredientes: ingredientes,
-                      typeOrder: _typeOrder),
-                ));
-          },
-          child: Icon(Icons.add),
-          backgroundColor: reptileGreen,
         ),
       ),
     );
