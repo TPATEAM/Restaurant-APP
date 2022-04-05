@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant/models/Ingredient.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
+import 'package:restaurant/views/order_confirmation.dart';
 
 class OrderDetails extends StatefulWidget {
   Platillo platillo;
@@ -214,6 +215,20 @@ class _OrderDetailsState extends State<OrderDetails> {
               ],
             ),
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OrderConfirmation(
+                      platillo: widget.platillo,
+                      ingredientes: ingredientes,
+                      typeOrder: _typeOrder),
+                ));
+          },
+          child: Icon(Icons.add),
+          backgroundColor: reptileGreen,
         ),
       ),
     );
