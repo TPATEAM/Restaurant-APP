@@ -196,48 +196,51 @@ class LoginScreen extends StatelessWidget {
                           ),
                           child: TextButton(
                             onPressed: () {
+                              int empleadoID = -1;
                               for (int i = 0; i < empleados.length; i++) {
                                 if (user.text == empleados[i].username &&
                                     pass.text == empleados[i].password) {
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                          builder: (context) => HomeScreen(
-                                              empleado: empleados[i])),
-                                      (Route<dynamic> route) => false);
-                                      break;
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Container(
-                                          child: Row(
-                                            children: const [
-                                              Icon(
-                                                Icons.error,
-                                                color: Colors.red,
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text('Error'),
-                                            ],
-                                          ),
-                                        ),
-                                        content: Text(
-                                            "Usuario o contraseña incorrectos"),
-                                        actions: [
-                                          TextButton(
-                                            child: const Text("OK"),
-                                            onPressed: Navigator.of(context,
-                                                    rootNavigator: true)
-                                                .pop,
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
+                                  empleadoID = i;
                                 }
+                              }
+                              if (empleadoID > -1) {
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) => HomeScreen(
+                                            empleado: empleados[empleadoID])),
+                                    (Route<dynamic> route) => false);
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Container(
+                                        child: Row(
+                                          children: const [
+                                            Icon(
+                                              Icons.error,
+                                              color: Colors.red,
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text('Error'),
+                                          ],
+                                        ),
+                                      ),
+                                      content: Text(
+                                          "Usuario o contraseña incorrectos"),
+                                      actions: [
+                                        TextButton(
+                                          child: const Text("OK"),
+                                          onPressed: Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .pop,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                               }
                             },
                             child: Row(
