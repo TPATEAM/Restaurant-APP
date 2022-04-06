@@ -21,19 +21,17 @@ enum tipoPedido { restaurant, delivery }
 
 class _OrderDetailsState extends State<OrderDetails> {
   tipoPedido? _typeOrder = tipoPedido.restaurant;
-  late List<Ingredient> ingredientes = widget.ingredientes; 
+  late List<Ingredient> ingredientes = widget.ingredientes;
   List<Ingredient> ingredientesPlatillo = [];
-  
-  void _addIngredientesPlatillo()
-  {
+  final cantidadController = TextEditingController();
+
+  void _addIngredientesPlatillo() {
     ingredientesPlatillo.clear();
     List<String> ingredientesID = widget.platillo.listaIngredientes!.split('|');
-    for(int i = 0; i < ingredientesID.length; i++)
-    {
-      for(int j = 0; j < ingredientes.length; j++)
-      {
-        if(ingredientes.elementAt(j).idIngredient == int.parse(ingredientesID[i]))
-        {
+    for (int i = 0; i < ingredientesID.length; i++) {
+      for (int j = 0; j < ingredientes.length; j++) {
+        if (ingredientes.elementAt(j).idIngredient ==
+            int.parse(ingredientesID[i])) {
           ingredientesPlatillo.add(ingredientes[j]);
         }
       }
@@ -77,7 +75,7 @@ class _OrderDetailsState extends State<OrderDetails> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.only(top: 15),
+            margin: EdgeInsets.only(top: 5),
             width: MediaQuery.of(context).size.width,
             child: Column(
               children: [
@@ -97,7 +95,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                       ),
                       Column(
                         children: [
-                          Container(
+                          SizedBox(
                             width: MediaQuery.of(context).size.width * 0.65,
                             child: Text(
                               widget.platillo.name.toString(),
@@ -191,20 +189,134 @@ class _OrderDetailsState extends State<OrderDetails> {
                       ),
                       Column(
                         children: [
-                          Container(
+                          SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
-                            height: ingredientesPlatillo.isEmpty ? 
-                                    MediaQuery.of(context).size.height * 0.05 :
-                                    MediaQuery.of(context).size.height * 0.3,
-                            child: ingredientesPlatillo.isEmpty ? 
-                            Center(
-                              child: Text('No hay ingredientes.'),
-                            ) :
-                            ListView.builder(
-                              itemCount: ingredientesPlatillo.length,
-                              itemBuilder: (context, index) {
-                                return Text(ingredientesPlatillo.elementAt(index).name.toString());
+                            height: ingredientesPlatillo.isEmpty
+                                ? MediaQuery.of(context).size.height * 0.05
+                                : MediaQuery.of(context).size.height * 0.2,
+                            child: ingredientesPlatillo.isEmpty
+                                ? Center(
+                                    child: Text('No hay ingredientes.'),
+                                  )
+                                : ListView.builder(
+                                    itemCount: ingredientesPlatillo.length,
+                                    itemBuilder: (context, index) {
+                                      return CheckboxListTile(
+                                        title: Text(
+                                          ingredientesPlatillo
+                                              .elementAt(index)
+                                              .name
+                                              .toString(),
+                                          style: TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                            color: blackLight,
+                                          ),
+                                        ),
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
+                                        value: ingredientesPlatillo
+                                            .elementAt(index)
+                                            .selected,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            ingredientesPlatillo
+                                                .elementAt(index)
+                                                .selected = value;
+                                          });
+                                        },
+                                        activeColor: highBlue,
+                                        checkColor: Colors.white,
+                                      );
+                                    },
+                                  ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: MediaQuery.of(context).size.height * 0.04,
+                            child: GestureDetector(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: const [
+                                  Icon(
+                                    Icons.add,
+                                    color: reptileGreen,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    'Agregar Ingredientes Extra',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 30),
+                            child: TextField(
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 24,
+                              ),
+                              textInputAction: TextInputAction.next,
+                              autofocus: false,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                hintText: 'Observaciones',
+                                prefixIcon: Icon(
+                                  Icons.notes,
+                                  color: Colors.grey,
+                                ),
+                                contentPadding: EdgeInsets.all(10),
+                                hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 18,
+                                ),
+                                labelText: 'Observaciones',
+                                labelStyle: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.grey,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.green, width: 2.0),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: 90,
+                            margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                            padding: EdgeInsets.symmetric(
+                              vertical: 15,
+                              horizontal: 10,
+                            ),
+                            width: MediaQuery.of(context).size.width,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
                               },
+                              child: Text('Confirmar',
+                                  textAlign: TextAlign.center),
+                              style: ElevatedButton.styleFrom(
+                                primary: reptileGreen,
+                                textStyle: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -215,20 +327,6 @@ class _OrderDetailsState extends State<OrderDetails> {
               ],
             ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OrderConfirmation(
-                      platillo: widget.platillo,
-                      ingredientes: ingredientes,
-                      typeOrder: _typeOrder),
-                ));
-          },
-          child: Icon(Icons.add),
-          backgroundColor: reptileGreen,
         ),
       ),
     );
