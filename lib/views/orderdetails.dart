@@ -23,7 +23,8 @@ class _OrderDetailsState extends State<OrderDetails> {
   tipoPedido? _typeOrder = tipoPedido.restaurant;
   late List<Ingredient> ingredientes = widget.ingredientes;
   List<Ingredient> ingredientesPlatillo = [];
-  final cantidadController = TextEditingController();
+  final observacionesController = TextEditingController();
+  final codigoEspecialController = TextEditingController();
 
   void _addIngredientesPlatillo() {
     ingredientesPlatillo.clear();
@@ -267,6 +268,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 fontSize: 24,
                               ),
                               textInputAction: TextInputAction.next,
+                              controller: observacionesController,
                               autofocus: false,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
@@ -283,6 +285,45 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   fontSize: 18,
                                 ),
                                 labelText: 'Observaciones',
+                                labelStyle: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.grey,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.green, width: 2.0),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 30),
+                            child: TextField(
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 24,
+                              ),
+                              textInputAction: TextInputAction.done,
+                              controller: observacionesController,
+                              autofocus: false,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                hintText: 'Codigo Especial',
+                                prefixIcon: Icon(
+                                  Icons.receipt,
+                                  color: Colors.grey,
+                                ),
+                                contentPadding: EdgeInsets.all(10),
+                                hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 18,
+                                ),
+                                labelText: 'Codigo Especial',
                                 labelStyle: TextStyle(
                                   fontSize: 18,
                                   color: Colors.grey,
