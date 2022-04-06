@@ -1,16 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:restaurant/models/Employee.dart';
 import 'package:restaurant/values.dart';
-
 import 'home.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final user = TextEditingController();
   final pass = TextEditingController();
+
+  List<Employee> empleados = [];
   bool isLoading = false;
+
+  void _loadEmpleados() async {
+    empleados.clear();
+    await FirebaseFirestore.instance
+        .collection('Employee')
+        .get()
+        .then((snapshot) {
+      snapshot.docs.forEach((doc) {
+        empleados.add(Employee.fromJson(doc.data()));
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    _loadEmpleados();
     return MaterialApp(
       title: 'login',
       debugShowCheckedModeBanner: false,
@@ -179,44 +196,48 @@ class LoginScreen extends StatelessWidget {
                           ),
                           child: TextButton(
                             onPressed: () {
-                              if (user.text == "" &&
-                                  pass.text == "") {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) => HomeScreen()),
-                                    (Route<dynamic> route) => false);
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Container(
-                                        child: Row(
-                                          children: const [
-                                            Icon(
-                                              Icons.error,
-                                              color: Colors.red,
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text('Error'),
-                                          ],
+                              for (int i = 0; i < empleados.length; i++) {
+                                if (user.text == empleados[i].username &&
+                                    pass.text == empleados[i].password) {
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                          builder: (context) => HomeScreen(
+                                              empleado: empleados[i])),
+                                      (Route<dynamic> route) => false);
+                                      break;
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Container(
+                                          child: Row(
+                                            children: const [
+                                              Icon(
+                                                Icons.error,
+                                                color: Colors.red,
+                                              ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text('Error'),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      content: Text(
-                                          "Usuario o contraseña incorrectos"),
-                                      actions: [
-                                        TextButton(
-                                          child: const Text("OK"),
-                                          onPressed: Navigator.of(context,
-                                                  rootNavigator: true)
-                                              .pop,
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
+                                        content: Text(
+                                            "Usuario o contraseña incorrectos"),
+                                        actions: [
+                                          TextButton(
+                                            child: const Text("OK"),
+                                            onPressed: Navigator.of(context,
+                                                    rootNavigator: true)
+                                                .pop,
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
                               }
                             },
                             child: Row(

@@ -17,11 +17,11 @@ class Employee {
 
   factory Employee.fromJson(Map<String, dynamic> json) {
     return Employee(
-      idEmployee: int.parse(json['idEmployee']),
+      idEmployee: json['idEmployee'],
       name: json['name'],
       lastName: json['lastName'],
-      role: int.parse(json['role']),
-      username: json['username'],
+      role: json['role'],
+      username: json['user'],
       password: json['password'],
     );
   }

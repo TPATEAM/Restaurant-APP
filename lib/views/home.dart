@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:restaurant/models/Employee.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/widgets/TablesView.dart';
 import 'package:restaurant/widgets/utility/navbar.dart';
 
 class HomeScreen extends StatelessWidget {
+  Employee? empleado;
 
-  String name = 'Nombre Apellido';
-  String role = 'Mesero';
-
-  HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({
+    Key? key,
+    this.empleado,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(name, style: 
+                      Text(empleado!.name.toString() + " " + empleado!.lastName.toString(), style: 
                         TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 20,
@@ -72,7 +74,8 @@ class HomeScreen extends StatelessWidget {
                           color: blackLight,
                         ),
                       ),
-                      Text(role, style: 
+                      Text(empleado!.role == 1 ? 'Administrador'
+                      : 'Mesero', style: 
                         TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 16,

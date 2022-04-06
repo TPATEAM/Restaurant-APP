@@ -307,7 +307,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 fontSize: 24,
                               ),
                               textInputAction: TextInputAction.done,
-                              controller: observacionesController,
+                              controller: codigoEspecialController,
                               autofocus: false,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
@@ -335,6 +335,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 ),
                               ),
                             ),
+                          ),
+                          SizedBox(
+                            height: 110,
                           ),
                           Container(
                             height: 90,
