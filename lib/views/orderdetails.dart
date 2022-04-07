@@ -336,7 +336,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                             ),
                           ),
                           SizedBox(
-                            height: 110,
+                            height: MediaQuery.of(context).size.height * 0.03,
                           ),
                           Container(
                             height: 90,

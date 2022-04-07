@@ -222,7 +222,7 @@ class _PedidosOrderState extends State<PedidosOrder> {
                       Column(
                         children: [
                           SizedBox(
-                            width: 110,
+                            width: MediaQuery.of(context).size.width * 0.28,
                             height: 120,
                             child: Image.network(
                               listaPlatillosSearch

@@ -77,11 +77,13 @@ class _Login extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
                 Padding(
-                  padding: EdgeInsets.all(30),
+                  padding: EdgeInsets.only(
+                    top: 30,
+                    bottom: 30,
+                    left: MediaQuery.of(context).size.width * 0.1,
+                    right: MediaQuery.of(context).size.width * 0.1,
+                  ),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
