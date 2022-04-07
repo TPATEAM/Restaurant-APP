@@ -5,13 +5,19 @@ import 'package:restaurant/models/Employee.dart';
 import 'package:restaurant/values.dart';
 import 'home.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
+
+  bool isLoading = false;
+  @override
+  State<LoginScreen> createState() => _Login();
+}
+
+class _Login extends State<LoginScreen> {
   final user = TextEditingController();
   final pass = TextEditingController();
-
   List<Employee> empleados = [];
-  bool isLoading = false;
+  bool hidePass = true;
 
   void _loadEmpleados() async {
     empleados.clear();
@@ -22,6 +28,12 @@ class LoginScreen extends StatelessWidget {
       snapshot.docs.forEach((doc) {
         empleados.add(Employee.fromJson(doc.data()));
       });
+    });
+  }
+
+  void _toggle() {
+    setState((){
+      hidePass = !hidePass;
     });
   }
 
@@ -153,7 +165,7 @@ class LoginScreen extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               fontSize: 24,
                             ),
-                            obscureText: true,
+                            obscureText: hidePass,
                             controller: pass,
                             autofocus: false,
                             textInputAction: TextInputAction.done,
@@ -165,6 +177,15 @@ class LoginScreen extends StatelessWidget {
                               prefixIcon: Icon(
                                 Icons.lock,
                                 color: Colors.grey,
+                              ),
+                              suffixIcon: GestureDetector(
+                                onTap: _toggle,
+                                child: Icon(
+                                  hidePass ? 
+                                  Icons.visibility : 
+                                  Icons.visibility_off,
+                                  color: Colors.grey
+                                ),
                               ),
                               contentPadding: EdgeInsets.all(10),
                               hintStyle: TextStyle(
