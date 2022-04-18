@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant/models/Ingredient.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
+import 'package:restaurant/views/ingredientlist.dart';
 
 class OrderDetails extends StatefulWidget {
   Platillo platillo;
@@ -22,6 +23,8 @@ class _OrderDetailsState extends State<OrderDetails> {
   tipoPedido? _typeOrder = tipoPedido.restaurant;
   late List<Ingredient> ingredientes = widget.ingredientes;
   List<Ingredient> ingredientesPlatillo = [];
+  List<Ingredient> extras = [];
+
   final observacionesController = TextEditingController();
   final codigoEspecialController = TextEditingController();
 
@@ -193,7 +196,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                             width: MediaQuery.of(context).size.width * 0.8,
                             height: ingredientesPlatillo.isEmpty
                                 ? MediaQuery.of(context).size.height * 0.05
-                                : MediaQuery.of(context).size.height * 0.2,
+                                : MediaQuery.of(context).size.height * 0.3,
                             child: ingredientesPlatillo.isEmpty
                                 ? Center(
                                     child: Text('No hay ingredientes.'),
@@ -233,29 +236,75 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   ),
                           ),
                           SizedBox(
+                            height: 15,
+                          ),
+                          SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
                             height: MediaQuery.of(context).size.height * 0.04,
                             child: GestureDetector(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: const [
-                                  Icon(
-                                    Icons.add,
-                                    color: reptileGreen,
-                                  ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    'Agregar Ingredientes Extra',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black87,
+                              child: GestureDetector(
+                                onTap: () {
+                                  _navigateToAddIngredientes(context);
+                                },
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: const [
+                                    Icon(
+                                      Icons.add,
+                                      color: reptileGreen,
                                     ),
-                                  ),
-                                ],
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Agregar Ingredientes Extra',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: extras.isEmpty
+                                ? 0
+                                : MediaQuery.of(context).size.height * 0.3,
+                            child: extras.isEmpty
+                                ? Container()
+                                : ListView.builder(
+                                    itemCount: extras.length,
+                                    itemBuilder: (context, index) {
+                                      return CheckboxListTile(
+                                        title: Text(
+                                          extras
+                                              .elementAt(index)
+                                              .name
+                                              .toString(),
+                                          style: TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                            color: blackLight,
+                                          ),
+                                        ),
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
+                                        value: extras.elementAt(index).selected,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            extras.elementAt(index).selected =
+                                                value;
+                                          });
+                                        },
+                                        activeColor: highBlue,
+                                        checkColor: Colors.white,
+                                      );
+                                    },
+                                  ),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -340,7 +389,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                           ),
                           Container(
                             height: 90,
-                            margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                            margin: EdgeInsets.only(
+                                left: 10, right: 10, bottom: 10),
                             padding: EdgeInsets.symmetric(
                               vertical: 15,
                               horizontal: 10,
@@ -373,5 +423,24 @@ class _OrderDetailsState extends State<OrderDetails> {
         ),
       ),
     );
+  }
+
+  void _navigateToAddIngredientes(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => IngredientList(
+                listaIngredientes: ingredientes,
+              )),
+    );
+    if (result != null) {
+      for (int i = 0; i < ingredientes.length; i++) {
+        if (result == ingredientes.elementAt(i).idIngredient) {
+          extras.add(ingredientes.elementAt(i));
+        }
+      }
+      print(extras.toString());
+      setState(() {});
+    }
   }
 }
