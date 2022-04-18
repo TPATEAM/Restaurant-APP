@@ -123,7 +123,8 @@ class _Login extends State<LoginScreen> {
                             style: TextStyle(
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w400,
-                              fontSize: 24,
+                              fontSize: 22,
+                              color: blackLight,
                             ),
                             textInputAction: TextInputAction.next,
                             controller: user,
@@ -165,7 +166,8 @@ class _Login extends State<LoginScreen> {
                             style: TextStyle(
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w400,
-                              fontSize: 24,
+                              fontSize: 22,
+                              color: blackLight,
                             ),
                             obscureText: hidePass,
                             controller: pass,

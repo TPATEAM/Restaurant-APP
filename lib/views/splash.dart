@@ -38,11 +38,12 @@ class _SplashScreen extends State<SplashScreen> {
   }
 
   void navigate() {
-    Navigator.of(context).push(PageRouteBuilder(
-      transitionDuration: Duration(seconds: 1),
-      pageBuilder: (_, __, ___) => LoginScreen(),
+    Navigator.of(context).pushAndRemoveUntil(
+      PageRouteBuilder(
+        pageBuilder: (_, __, ___) => LoginScreen(),
+        transitionDuration: Duration(seconds: 1),
       ),
-    );
+      (Route<dynamic> route) => false,);
   }
 
   @override
