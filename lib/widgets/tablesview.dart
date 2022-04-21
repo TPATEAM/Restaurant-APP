@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant/models/Platillo.dart';
+import 'package:restaurant/models/Employee.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/views/pedidos.dart';
 
 class TablesView extends StatefulWidget {
   final int numTable;
+  final Employee employee;
 
   const TablesView({
     Key? key,
     required this.numTable,
+    required this.employee,
   }) : super(key: key);
 
   @override
@@ -26,6 +28,7 @@ class _TablesViewState extends State<TablesView> {
           MaterialPageRoute(
             builder: (context) => Pedidos(
               numTable: widget.numTable,
+              employee: widget.employee,
             ),
           )
         );

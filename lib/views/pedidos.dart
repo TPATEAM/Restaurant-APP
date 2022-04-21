@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:restaurant/models/Category.dart';
+import 'package:restaurant/models/Employee.dart';
 import 'package:restaurant/models/Ingredient.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
@@ -10,9 +11,11 @@ import 'package:restaurant/widgets/utility/navbar.dart';
 
 class Pedidos extends StatefulWidget {
   final int numTable;
+  final Employee employee;
   const Pedidos({
     Key? key,
     required this.numTable,
+    required this.employee,
   }) : super(key: key);
 
   @override
@@ -111,8 +114,8 @@ class _PedidosState extends State<Pedidos> {
                     borderSide: BorderSide(color: orangeHibiscus, width: 3),
                     insets: EdgeInsets.symmetric(horizontal: 20)),
                 tabs: const [
-                  Tab(text: 'COMPLETADOS'),
                   Tab(text: 'PENDIENTES'),
+                  Tab(text: 'COMPLETADOS'),
                 ],
               ),
               title: Text(
@@ -128,9 +131,9 @@ class _PedidosState extends State<Pedidos> {
             ),
           ),
           body: TabBarView(
-            children: const [
-              PedidosCompletados(),
-              PedidosPendientes(),
+            children: [
+              PedidosPendientes(platillos: platillos),
+              PedidosCompletados(platillos: platillos),
             ],
           ),
           floatingActionButton: FloatingActionButton(
@@ -142,7 +145,8 @@ class _PedidosState extends State<Pedidos> {
                         numTable: widget.numTable, 
                         listaPlatillos: platillos, 
                         listaCategorias: categorias,
-                        listaIngredientes: ingredientes
+                        listaIngredientes: ingredientes,
+                        employee: widget.employee,
                       ),
                   ));
             },
@@ -157,7 +161,11 @@ class _PedidosState extends State<Pedidos> {
 }
 
 class PedidosCompletados extends StatelessWidget {
-  const PedidosCompletados({Key? key}) : super(key: key);
+  late List<Platillo> platillos;
+  PedidosCompletados({
+    Key? key,
+    List<Platillo>? platillos,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +184,11 @@ class PedidosCompletados extends StatelessWidget {
 }
 
 class PedidosPendientes extends StatelessWidget {
-  const PedidosPendientes({Key? key}) : super(key: key);
+  late List<Platillo> platillos;
+  PedidosPendientes({
+    Key? key,
+    List<Platillo>? platillos,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,9 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant/models/Ingredient.dart';
+import 'package:restaurant/models/Pedido.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/views/ingredientlist.dart';
@@ -7,10 +11,14 @@ import 'package:restaurant/views/ingredientlist.dart';
 class OrderDetails extends StatefulWidget {
   Platillo platillo;
   List<Ingredient> ingredientes;
+  int numTable;
+  int? numEmployee;
   OrderDetails({
     Key? key,
     required this.platillo,
     required this.ingredientes,
+    required this.numTable,
+    required this.numEmployee,
   }) : super(key: key);
 
   @override
@@ -398,7 +406,26 @@ class _OrderDetailsState extends State<OrderDetails> {
                             width: MediaQuery.of(context).size.width,
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                try {
+                                  _storeOrder();
+                                  Navigator.pop(context);
+                                } catch (e) {
+                                  showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: Text('Ocurrió un error'),
+                                      content: Text(e.toString()),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              context, 'Reintentar'),
+                                          child: Text('Reintentar'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
                               },
                               child: Text('Confirmar',
                                   textAlign: TextAlign.center),
@@ -442,5 +469,58 @@ class _OrderDetailsState extends State<OrderDetails> {
       print(extras.toString());
       setState(() {});
     }
+  }
+
+  _storeOrder() async {
+    DateTime now = DateTime.now();
+
+    String Extras = '';
+    for (int i = 0; i < extras.length; i++) {
+      Extras = Extras + extras[i].idIngredient.toString() + ',';
+    }
+
+    Pedido pedido = Pedido(
+        id: Random().nextInt(100000),
+        numMesa: widget.numTable,
+        fecha: now,
+        empleado: widget.numEmployee,
+        platillo: widget.platillo.idPlatillo,
+        anotaciones: observacionesController.text,
+        codigo: codigoEspecialController.text,
+        estado: true,
+        extras: Extras
+      );
+
+    await FirebaseFirestore.instance
+        .collection('Pedidos')
+        .doc(pedido.id.toString())
+        .set(pedido.toJson())
+        .then((value) => showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+
+                elevation: 3,
+                title: Row(
+                  children: const [
+                    Icon(
+                      Icons.info,
+                      color: reptileGreen
+                    ),
+                    SizedBox(width: 10),
+                    Text('Pedido realizado'),
+                  ],
+                ),
+                content: Text('Se ha almacenado el pedido con exito!'),
+                actions: [
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      primary: reptileGreen,
+                    ),
+                    onPressed: () => Navigator.pop(context, 'Aceptar'),
+                    child: Text('Aceptar'),
+                  ),
+                ],
+              ),
+            ));
   }
 }

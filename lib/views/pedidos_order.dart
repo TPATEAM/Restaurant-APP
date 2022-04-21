@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant/models/Category.dart';
+import 'package:restaurant/models/Employee.dart';
 import 'package:restaurant/models/Ingredient.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
@@ -7,12 +8,15 @@ import 'package:restaurant/views/orderdetails.dart';
 
 class PedidosOrder extends StatefulWidget {
   final int numTable;
+  final Employee employee;
   List<Platillo>? listaPlatillos;
   List<Category>? listaCategorias;
   List<Ingredient>? listaIngredientes;
+
   PedidosOrder(
       {Key? key,
       required this.numTable,
+      required this.employee,
       this.listaPlatillos,
       this.listaCategorias,
       this.listaIngredientes
@@ -208,7 +212,9 @@ class _PedidosOrderState extends State<PedidosOrder> {
                     MaterialPageRoute(
                       builder: (context) => OrderDetails(
                           platillo: listaPlatillosSearch.elementAt(index),
-                          ingredientes: ingredientes, 
+                          ingredientes: ingredientes,
+                          numTable: widget.numTable,
+                          numEmployee: widget.employee.idEmployee,
                         ),
                     ),
                   );

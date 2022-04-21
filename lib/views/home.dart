@@ -140,34 +140,34 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(height: 30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
-                        TablesView(numTable: 1),
-                        TablesView(numTable: 2),
-                        TablesView(numTable: 3),
+                      children: [
+                        TablesView(numTable: 1, employee: empleado!),
+                        TablesView(numTable: 2, employee: empleado!),
+                        TablesView(numTable: 3, employee: empleado!),
                       ],
                     ),
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
-                        TablesView(numTable: 4),
+                      children: [
+                        TablesView(numTable: 4, employee: empleado!),
                       ],
                     ),
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
-                        TablesView(numTable: 5),
-                        TablesView(numTable: 6),
+                      children: [
+                        TablesView(numTable: 5, employee: empleado!),
+                        TablesView(numTable: 6, employee: empleado!),
                       ],
                     ),
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: const [
-                        TablesView(numTable: 7),
-                        TablesView(numTable: 8),
-                        TablesView(numTable: 9),
+                      children: [
+                        TablesView(numTable: 7, employee: empleado!),
+                        TablesView(numTable: 8, employee: empleado!),
+                        TablesView(numTable: 9, employee: empleado!),
                       ],
                     ),
                   ],
