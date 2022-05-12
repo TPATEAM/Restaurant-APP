@@ -236,13 +236,141 @@ class _PedidosCompletadosState extends State<PedidosCompletados> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
         body: Container(
-            color: Colors.white, child: Center(child: Text('No hay pedidos completados.'))),
-      ),
+          margin: EdgeInsets.only(top: 10),
+          child: pedidos.isEmpty ?
+          Center(child: Text('No hay pedidos completados.')):
+          ListView.builder(
+            itemCount: pedidos.length,
+            itemBuilder: (context, index) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.only(bottom: 5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:
+                  [
+                    Column(
+                      children: [
+                        Image.network(
+                          findPlatillo(pedidos[index].platillo).imageUrl.toString(),
+                          width: 110,
+                          height: 110,
+                          fit: BoxFit.cover,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Text(
+                                findPlatillo(pedidos[index].platillo).name.toString(),
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: blackLight,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.23,
+                              child: Text(
+                                '\$' +
+                                    findPlatillo(pedidos[index].platillo)
+                                        .price!
+                                        .toStringAsFixed(2),
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: blackLight,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Text(
+                                findPlatillo(pedidos[index].platillo).description
+                                    .toString(),
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                  color: Colors.grey.shade500,
+                                ),
+                                textAlign: TextAlign.justify,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              margin: EdgeInsets.only(top: 10),
+                              child: Text( 'Hace ' +
+                                _calcularDiferencia(pedidos[index].fecha).toString(),
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: Colors.grey.shade500,
+                                ),
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
     );
+  }
+
+  Platillo findPlatillo(int? idx){
+    late Platillo plato;
+    for(int i = 0; i < platillos.length; i++)
+    {
+      if(platillos[i].idPlatillo == idx)
+      {
+        plato = platillos[i];
+      }
+    }
+    return plato;
+  }
+
+  _calcularDiferencia(DateTime? fecha) {
+    DateTime now = DateTime.now();
+    Duration difference = now.difference(fecha!);
+    int hours = difference.inHours;
+    int minutes = difference.inMinutes;
+
+    if (hours > 0) {
+      return hours.toString() + ' horas';
+    } else if (minutes > 0) {
+      return minutes.toString() + ' minutos';
+    } else {
+      return 'unos segundos';
+    }
   }
 }
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -410,7 +538,6 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
             },
           ),
         ),
-      // ),
     );
   }
 
