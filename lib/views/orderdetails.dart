@@ -495,32 +495,6 @@ class _OrderDetailsState extends State<OrderDetails> {
         .collection('Pedidos')
         .doc(pedido.id.toString())
         .set(pedido.toJson())
-        .then((value) => showDialog<String>(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-
-                elevation: 3,
-                title: Row(
-                  children: const [
-                    Icon(
-                      Icons.info,
-                      color: reptileGreen
-                    ),
-                    SizedBox(width: 10),
-                    Text('Pedido realizado'),
-                  ],
-                ),
-                content: Text('Se ha almacenado el pedido con exito!'),
-                actions: [
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      primary: reptileGreen,
-                    ),
-                    onPressed: () => Navigator.pop(context, 'Aceptar'),
-                    child: Text('Aceptar'),
-                  ),
-                ],
-              ),
-            ));
+        .then((value) => print('Pedido guardado'));
   }
 }

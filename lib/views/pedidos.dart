@@ -1,13 +1,17 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:restaurant/models/Category.dart';
 import 'package:restaurant/models/Employee.dart';
 import 'package:restaurant/models/Ingredient.dart';
+import 'package:restaurant/models/Pedido.dart';
 import 'package:restaurant/models/Platillo.dart';
 import 'package:restaurant/values.dart';
 import 'package:restaurant/views/pedidos_order.dart';
 import 'package:restaurant/widgets/utility/navbar.dart';
+
+int mesa = 0;
 
 class Pedidos extends StatefulWidget {
   final int numTable;
@@ -25,6 +29,7 @@ class Pedidos extends StatefulWidget {
 class _PedidosState extends State<Pedidos> {
   List<Platillo> platillos = [];
   List<Category> categorias = [];
+  List<Pedido> pedidos = [];
   List<Ingredient> ingredientes = [];
 
   void _loadPlatillos() async {
@@ -50,7 +55,7 @@ class _PedidosState extends State<Pedidos> {
       });
     });
   }
-  
+
   void _loadCategories() async {
     categorias.clear();
     await FirebaseFirestore.instance
@@ -63,16 +68,31 @@ class _PedidosState extends State<Pedidos> {
     });
   }
 
+  void _loadPedidos() async {
+    pedidos.clear();
+    await FirebaseFirestore.instance
+        .collection('Pedidos')
+        .where('numMesa', isEqualTo: widget.numTable)
+        .get()
+        .then((snapshot) {
+      snapshot.docs.forEach((document) {
+        pedidos.add(Pedido.fromJson(document.data()));
+      });
+    });
+  }
+
   @override
   void initState() {
     _loadPlatillos();
     _loadCategories();
     _loadIngredients();
+    _loadPedidos();
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
+    mesa = widget.numTable;
     return MaterialApp(
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -132,8 +152,8 @@ class _PedidosState extends State<Pedidos> {
           ),
           body: TabBarView(
             children: [
-              PedidosPendientes(platillos: platillos),
-              PedidosCompletados(platillos: platillos),
+              PedidosPendientes(),
+              PedidosCompletados(),
             ],
           ),
           floatingActionButton: FloatingActionButton(
@@ -142,12 +162,12 @@ class _PedidosState extends State<Pedidos> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => PedidosOrder(
-                        numTable: widget.numTable, 
-                        listaPlatillos: platillos, 
-                        listaCategorias: categorias,
-                        listaIngredientes: ingredientes,
-                        employee: widget.employee,
-                      ),
+                      numTable: widget.numTable,
+                      listaPlatillos: platillos,
+                      listaCategorias: categorias,
+                      listaIngredientes: ingredientes,
+                      employee: widget.employee,
+                    ),
                   ));
             },
             child: Icon(Icons.add),
@@ -159,46 +179,265 @@ class _PedidosState extends State<Pedidos> {
     );
   }
 }
+////////////////////////////////////////////////////////////////////////////////////////
+class PedidosCompletados extends StatefulWidget {
 
-class PedidosCompletados extends StatelessWidget {
-  late List<Platillo> platillos;
   PedidosCompletados({
     Key? key,
-    List<Platillo>? platillos,
   }) : super(key: key);
+
+  @override
+  State<PedidosCompletados> createState() => _PedidosCompletadosState();
+}
+
+class _PedidosCompletadosState extends State<PedidosCompletados> {
+  List<Platillo> platillos = [];
+  List<Pedido> pedidos = [];
+  int numMesa = mesa;
+
+  _loadPedidos() async {
+    pedidos.clear();
+    await FirebaseFirestore.instance
+        .collection('Pedidos')
+        .where('numMesa', isEqualTo: numMesa)
+        .get()
+        .then((snapshot) {
+      snapshot.docs.forEach((document) {
+        Pedido pedido = Pedido.fromJson(document.data());
+        if(!pedido.estado!)
+        {
+          pedidos.add(Pedido.fromJson(document.data()));
+        }
+      });
+    });    
+    setState(() {});
+  }
+
+  _loadPlatillos() async {
+    platillos.clear();
+    await FirebaseFirestore.instance
+        .collection('Platillos')
+        .get()
+        .then((snapshot) {
+      snapshot.docs.forEach((document) {
+        platillos.add(Platillo.fromJson(document.data()));
+      });
+    });
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPedidos();
+    _loadPlatillos();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Scaffold(
-      body: Center(
-        child: Text(
-          'Pedidos Completados',
-            style: TextStyle(fontSize: 21),
-          ),
-        ),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Container(
+            color: Colors.white, child: Center(child: Text('No hay pedidos completados.'))),
       ),
     );
   }
 }
-
-class PedidosPendientes extends StatelessWidget {
-  late List<Platillo> platillos;
+////////////////////////////////////////////////////////////////////////////////////////
+class PedidosPendientes extends StatefulWidget {
   PedidosPendientes({
     Key? key,
-    List<Platillo>? platillos,
   }) : super(key: key);
 
   @override
+  State<PedidosPendientes> createState() => _PedidosPendientesState();
+}
+
+class _PedidosPendientesState extends State<PedidosPendientes> {
+  List<Platillo> platillos = [];
+  List<Pedido> pedidos = [];
+  int numMesa = mesa;
+
+  _loadPedidos() async {
+    pedidos.clear();
+    await FirebaseFirestore.instance
+        .collection('Pedidos')
+        .where('numMesa', isEqualTo: numMesa)
+        .get()
+        .then((snapshot) {
+      snapshot.docs.forEach((document) {
+        Pedido pedido = Pedido.fromJson(document.data());
+        if(pedido.estado!)
+        {
+          pedidos.add(Pedido.fromJson(document.data()));
+        }
+      });
+    });    
+    setState(() {
+      
+    });
+  }
+
+  _loadPlatillos() async {
+    platillos.clear();
+    await FirebaseFirestore.instance
+        .collection('Platillos')
+        .get()
+        .then((snapshot) {
+      snapshot.docs.forEach((document) {
+        platillos.add(Platillo.fromJson(document.data()));
+      });
+    });
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPedidos();
+    _loadPlatillos();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-            body: Center(
-                child: Text(
-          'Pedidos Pendientes',
-          style: TextStyle(fontSize: 21),
-        ))));
+    return Scaffold(
+        body: Container(
+          margin: EdgeInsets.only(top: 10),
+          child: pedidos.isEmpty ?
+          Center(child: Text('No hay pedidos pendientes.')):
+          ListView.builder(
+            itemCount: pedidos.length,
+            itemBuilder: (context, index) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.only(bottom: 5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:
+                  [
+                    Column(
+                      children: [
+                        Image.network(
+                          findPlatillo(pedidos[index].platillo).imageUrl.toString(),
+                          width: 110,
+                          height: 110,
+                          fit: BoxFit.cover,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Text(
+                                findPlatillo(pedidos[index].platillo).name.toString(),
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: blackLight,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.23,
+                              child: Text(
+                                '\$' +
+                                    findPlatillo(pedidos[index].platillo)
+                                        .price!
+                                        .toStringAsFixed(2),
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: blackLight,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Text(
+                                findPlatillo(pedidos[index].platillo).description
+                                    .toString(),
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                  color: Colors.grey.shade500,
+                                ),
+                                textAlign: TextAlign.justify,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              margin: EdgeInsets.only(top: 10),
+                              child: Text( 'Hace ' +
+                                _calcularDiferencia(pedidos[index].fecha).toString(),
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: Colors.grey.shade500,
+                                ),
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      // ),
+    );
+  }
+
+  Platillo findPlatillo(int? idx){
+    late Platillo plato;
+    for(int i = 0; i < platillos.length; i++)
+    {
+      if(platillos[i].idPlatillo == idx)
+      {
+        plato = platillos[i];
+      }
+    }
+    return plato;
+  }
+
+  _calcularDiferencia(DateTime? fecha) {
+    DateTime now = DateTime.now();
+    Duration difference = now.difference(fecha!);
+    int hours = difference.inHours;
+    int minutes = difference.inMinutes;
+
+    if (hours > 0) {
+      return hours.toString() + ' horas';
+    } else if (minutes > 0) {
+      return minutes.toString() + ' minutos';
+    } else {
+      return 'unos segundos';
+    }
   }
 }

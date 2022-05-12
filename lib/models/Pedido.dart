@@ -28,11 +28,11 @@ class Pedido{
   });
 
   factory Pedido.fromJson(Map<String, dynamic> json) => Pedido(
-    id: int.parse(json["id"]),
-    numMesa: int.parse(json["numMesa"]),
-    fecha: DateTime.parse(json["fecha"]),
-    empleado: int.parse(json["empleado"]),
-    platillo: int.parse(json["platillo"]),
+    id: json["id"],
+    numMesa: json["numMesa"],
+    fecha: json["fecha"].toDate(),
+    empleado: json["empleado"],
+    platillo: json["platillo"],
     anotaciones: json["anotaciones"],
     codigo: json["codigo"],
     estado: json["estado"],

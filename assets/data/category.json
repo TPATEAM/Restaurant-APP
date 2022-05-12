@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "name": "Entradas",
+        "description": "Platillos de entrada"
+    },
+    {
+        "id": 2,
+        "name": "Bebidas",
+        "description": "Bebidas y refrescos"
+    }
+]

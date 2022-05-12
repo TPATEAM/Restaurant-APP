@@ -1,191 +1,20 @@
 [
   {
-    "platilloId": 0,
-    "platilloName": "Pizza",
-    "platilloDescription": "La combinación perfecta entre Pepperoni y Champiñones, con un gran sabor y horneado al momento.",
-    "platilloIdCategory": 1,
-    "platilloPrice": "79.99",
-    "platilloImageUrl": "https://placeralplato.com/files/2016/01/Pizza-con-pepperoni-640x480.jpg?width=1200&enable=upscale",
-    "platilloListaIngredientes": "1,2,3,4"
+    "id": 0,
+    "name": "Champiñones Locos",
+    "description": "Salteados y preparados con jamon, queso y especias de finas hierbas.",
+    "price": 139.50,
+    "imageUrl": "https://locosxlaparrilla.com/wp-content/uploads/2015/02/Receta-recetas-locos-x-la-parrilla-locosxlaparrilla-receta-champiñones-ajillo-champiñones-ajillo-receta-champiñones-champiñones-2.jpg",
+    "idCategory": 1,
+    "idIngredientes": "1|2|3"
   },
   {
-    "platilloId": 1,
-    "platilloName": "Coctel de Camarones",
-    "platilloDescription": "Preparación a base de camarones generalmente crudos, aliñados o macerados en una mezcla de aceite de oliva o maíz, puré de jitomate o salsa catsup, cebolla picada y cilantro.",
-    "platilloIdCategory": 6,
-    "platilloPrice": "90.50",
-    "platilloImageUrl": "https://cdn.kiwilimon.com/recetaimagen/29699/th5-640x640-31115.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 2,
-    "platilloName": "Hamburguesa",
-    "description": "Dos piezas de carne 100% Black Angus, salsa especial, 2 rebanadas queso americano, mayonesa, lechuga, cebolla morada, tomate y pepinillos.",
-    "platilloIdCategory": 2,
-    "platilloPrice": "65.80",
-    "platilloImageUrl": "https://gourmetdemexico.com.mx/wp-content/uploads/2021/05/dia-de-la-hamburguesa.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 3,
-    "platilloName": "Agua embotellada ciel",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 5,
-    "platilloPrice": "13.50",
-    "platilloImageUrl": "https://s.cornershopapp.com/product-images/341325.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 4,
-    "platilloName": "Agua embotellada epura",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 5,
-    "platilloPrice": "11",
-    "platilloImageUrl": "https://www.sanborns.com.mx/imagenes-sanborns-ii/1200/7501086801121.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 5,
-    "platilloName": "Pay de Limón",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 4,
-    "platilloPrice": "25.95",
-    "platilloImageUrl": "https://www.vvsupremo.com/wp-content/uploads/2017/11/Lime-Tart-Recipe-2.png",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 6,
-    "platilloName": "Flan",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 4,
-    "platilloPrice": "18.90",
-    "platilloImageUrl": "https://saboryestilo.com.mx/wp-content/uploads/2021/08/Receta-flan-napolitano.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 7,
-    "platilloName": "Carnitas",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 2,
-    "platilloPrice": "60.85",
-    "platilloImageUrl": "https://cdn2.cocinadelirante.com/sites/default/files/styles/gallerie/public/images/2020/09/como-se-hacen-las-carnitas-facil.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 8,
-    "platilloName": "Tacos al pastor",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 2,
-    "platilloPrice": "25.20",
-    "platilloImageUrl": "https://www.comedera.com/wp-content/uploads/2017/08/tacos-al-pastor-receta.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 9,
-    "platilloName": "Agua de Piña",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 5,
-    "platilloPrice": "19.00",
-    "platilloImageUrl": "https://files.wapa.pe/Wapa/2020/01/18/agua-de-c-scara-de-pi-a-1-1579359641.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 10,
-    "platilloName": "Agua de horchata",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 5,
-    "platilloPrice": "19.50",
-    "platilloImageUrl": "https://cdn.kiwilimon.com/recetaimagen/13125/th5-640x640-24052.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 11,
-    "platilloName": "Orden de Papas",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 2,
-    "platilloPrice": "27.65",
-    "platilloImageUrl": "https://d1ralsognjng37.cloudfront.net/be2c7115-c1a6-4b6e-829c-b295e2a3101e.jpeg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 12,
-    "platilloName": "Orden de Cebollas",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 2,
-    "platilloPrice": "35.15",
-    "platilloImageUrl": "https://laparrillaranchera.com/media/2013/07/Cebollas.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 13,
-    "platilloName": "Bagette de Champinones",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 3,
-    "platilloPrice": "30.20",
-    "platilloImageUrl": "https://www.cardamomo.news/__export/1610495028131/sites/debate/img/2021/01/12/receta_de_baguette_vegano_con_champixones_para_el_desayunox_crop1610494964841.jpeg_117894780.jpeg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 14,
-    "platilloName": "Baggete de Jamon",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 3,
-    "platilloPrice": "28.60",
-    "platilloImageUrl": "https://dam.cocinafacil.com.mx/wp-content/uploads/2018/03/Baguette-maravilla.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 15,
-    "platilloName": "Baggette de Pizza",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 3,
-    "platilloPrice": "33.33",
-    "platilloImageUrl": "https://cdn7.kiwilimon.com/recetaimagen/36426/45114.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 16,
-    "platilloName": "Baggette de Hawaiano",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 3,
-    "platilloPrice": "38.40",
-    "platilloImageUrl": "https://cdn7.kiwilimon.com/recetaimagen/36426/45114.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 17,
-    "platilloName": "Baggette de Salmon",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 3,
-    "platilloPrice": "42.70",
-    "platilloImageUrl": "https://storage.googleapis.com/avena-recipes/2019/10/1571781090929.jpeg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 18,
-    "platilloName": "Baggette de Pollo",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 3,
-    "platilloPrice": "45.90",
-    "platilloImageUrl": "https://dam.cocinafacil.com.mx/wp-content/uploads/2020/01/baguette-de-pollo.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 19,
-    "platilloName": "Baggette de Carne",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 3,
-    "platilloPrice": "49.00",
-    "platilloImageUrl": "https://i.blogs.es/927b89/baguette-carne-queso-receta/840_560.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
-  },
-  {
-    "platilloId": 20,
-    "platilloName": "Pastel de Pistache",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse efficitur ante ut eros ornare, a mattis massa tincidunt. Nunc non venenatis neque.",
-    "platilloIdCategory": 4,
-    "platilloPrice": "52.50",
-    "platilloImageUrl": "https://hornomx.com/wp-content/uploads/2017/01/pistachio-cake-recipe-hornomx-FG.jpg",
-    "platilloListaIngredientes": "1,2,3,4"
+    "id": 1,
+    "name": "Nuggets de Pollo",
+    "description": "Acompañados con papa francesa y canasta de frutas y helado",
+    "price": 79.50,
+    "imageUrl": "https://locosxlaparrilla.com/wp-content/uploads/2015/02/Receta-recetas-locos-x-la-parrilla-locosxlaparrilla-receta-champiñones-ajillo-champiñones-ajillo-receta-champiñones-champiñones-2.jpg",
+    "idCategory": 2,
+    "idIngredientes": "5|7|8"
   }
 ]
